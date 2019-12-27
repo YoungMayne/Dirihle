@@ -141,16 +141,19 @@ namespace Dirihle
 
             double[,] vStep = new double[N + 1, M + 1];
 
-            for (int j = 0; j < M + 1; ++j)
+            Table.Rows.Clear();
+            Table.Columns.Clear();
+
+            for (int i = 0; i < N + 1; ++i)
             {
-                if (Table.Columns.Count <= j)
+                if (Table.Columns.Count <= i)
                 {
                     Table.Columns.Add("", "");
                 }
 
-                for (int i = 0; i < N + 1; ++i)
+                for (int j = 0; j < M + 1; ++j)
                 {
-                    if (Table.Rows.Count <= i)
+                    if (Table.Rows.Count <= j)
                     {
                         Table.Rows.Add();
                     }
@@ -163,7 +166,7 @@ namespace Dirihle
             {
                 for (int j = 0; j < M + 1; ++j)
                 {
-                    Table.Rows[i].Cells[j].Value = v[i, j];
+                    Table.Rows[j].Cells[i].Value = v[i, j];
                 }
             }
 
@@ -197,21 +200,25 @@ namespace Dirihle
 
         private double mu1(double y)
         {
+            //return 1.0 - y * y;
             return Math.Exp(1.0 - Xo * Xo - y * y);
         }
 
         private double mu2(double y)
         {
+            //return (1.0 - y * y) * Math.Exp(y);
             return Math.Exp(1.0 - Xn * Xn - y * y);
         }
 
         private double mu3(double x)
         {
+            //return 1.0 - x * x;
             return Math.Exp(1.0 - x * x - Yo * Yo);
         }
 
         private double mu4(double x)
         {
+            //return 1.0 - x * x;
             return Math.Exp(1.0 - x * x - Yn * Yn);
         }
 
@@ -250,6 +257,8 @@ namespace Dirihle
         private double Function(uint i, uint j)
         {
             return 14.0 / 9.0 * Math.Exp(7.0 / 9.0);
+            //return (-2.0 * X(i) * Math.Exp(1.0 - X(i) * X(i) - Y(j) * Y(j))) + (-2.0 * Y(j) * Math.Exp(1.0 - X(i) * X(i) - Y(j) * Y(j)));
+            //return Math.Abs(X(i) * X(i) - Y(j) * Y(j));
         }
     }
 }
