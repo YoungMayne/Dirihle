@@ -25,6 +25,7 @@ namespace Dirihle
         private double accuracy = 0.0;
 
         private double[,] v;
+        private double[,] f;
 
         uint counter = 0u;
         private uint Nmax;
@@ -48,12 +49,14 @@ namespace Dirihle
             YnBox.Minimum = decimal.MinValue;
             YnBox.Maximum = decimal.MaxValue;
 
+            NmaxBox.Maximum = decimal.MaxValue;
+
             XoBox.Value = -1;
             XnBox.Value = +1;
             YoBox.Value = -1;
             YnBox.Value = +1;
 
-            AccuracyBox.Text = "0.00001";
+            AccuracyBox.Text = "0,00001";
             NmaxBox.Value = 100;
             Nbox.Value = 3;
             Mbox.Value = 3;
@@ -66,6 +69,7 @@ namespace Dirihle
         private void ZeidelMethod()
         {
             v = new double[N + 1, M + 1];
+            f = new double[N + 1, M + 1];
 
             h = (Xn - Xo) / N;
             h2 = -Math.Pow(N / (Xn - Xo), 2);
@@ -76,13 +80,16 @@ namespace Dirihle
             for (uint i = 0u; i < N + 1; ++i)
             {
                 v[i, 0] = mu3(X(i));
+                f[i, 0] = Function(i, 0);
 
-                for (uint j = 1u; j < M + 1; ++j)
+                for (uint j = 1u; j < M; ++j)
                 {
                     v[i, j] = 0.0;
+                    f[i, j] = Function(i, j);
                 }
 
                 v[i, M] = mu4(X(i));
+                f[i, M] = Function(i, M);
             }
 
             for (uint j = 0u; j < M + 1; ++j)
@@ -92,6 +99,7 @@ namespace Dirihle
             }
 
             double current_accuracy;
+            double new_v;
             double current = 0.0;
             accuracy = 0.0;
             counter = 0u;
@@ -106,18 +114,20 @@ namespace Dirihle
                     {
                         current = v[i, j];
 
-                        v[i, j] = 0.0;
-                        v[i, j] += -k2 * (V(i, j + 1) + V(i, j - 1));
-                        v[i, j] += -h2 * (V(i + 1, j) + V(i - 1, j));
-                        v[i, j] += Function(i, j);
-                        v[i, j] /= a2;
+                        new_v = 0.0;
+                        new_v += -k2 * (V(i, j + 1) + V(i, j - 1));
+                        new_v += -h2 * (V(i + 1, j) + V(i - 1, j));
+                        new_v += f[i, j];
+                        new_v /= a2;
 
-                        current_accuracy = Math.Abs(current - v[i, j]);
+                        current_accuracy = Math.Abs(current - new_v);
 
                         if (accuracy < current_accuracy)
                         {
                             accuracy = current_accuracy;
                         }
+
+                        v[i, j] = new_v;
                     }
                 }
 
@@ -181,10 +191,10 @@ namespace Dirihle
 
             for (int i = 0; i < (N - 1) / 2 + 1; ++i)
             {
-                for(int j = 0; j < (M - 1) / 2 + 1; ++j)
+                for (int j = 0; j < (M - 1) / 2 + 1; ++j)
                 {
                     double cur_dif = Math.Abs(vStep[i, j] - v[i * 2, j * 2]);
-                    if(cur_dif > max_dif)
+                    if (cur_dif > max_dif)
                     {
                         max_dif = cur_dif;
                         max_i = i;
@@ -201,25 +211,25 @@ namespace Dirihle
         private double mu1(double y)
         {
             //return 1.0 - y * y;
-            return Math.Exp(1.0 - Xo * Xo - y * y);
+            return Math.Exp(1.0 - Math.Pow(Xo, 2) - Math.Pow(y, 2));
         }
 
         private double mu2(double y)
         {
             //return (1.0 - y * y) * Math.Exp(y);
-            return Math.Exp(1.0 - Xn * Xn - y * y);
+            return Math.Exp(1.0 - Math.Pow(Xn, 2) - Math.Pow(y, 2));
         }
 
         private double mu3(double x)
         {
             //return 1.0 - x * x;
-            return Math.Exp(1.0 - x * x - Yo * Yo);
+            return Math.Exp(1.0 - Math.Pow(x, 2) - Math.Pow(Yo, 2));
         }
 
         private double mu4(double x)
         {
             //return 1.0 - x * x;
-            return Math.Exp(1.0 - x * x - Yn * Yn);
+            return Math.Exp(1.0 - Math.Pow(x, 2) - Math.Pow(Yn, 2));
         }
 
         private double X(uint i)
@@ -256,9 +266,10 @@ namespace Dirihle
 
         private double Function(uint i, uint j)
         {
-            return 14.0 / 9.0 * Math.Exp(7.0 / 9.0);
+            //return 14.0 / 9.0 * Math.Exp(7.0 / 9.0);
             //return (-2.0 * X(i) * Math.Exp(1.0 - X(i) * X(i) - Y(j) * Y(j))) + (-2.0 * Y(j) * Math.Exp(1.0 - X(i) * X(i) - Y(j) * Y(j)));
             //return Math.Abs(X(i) * X(i) - Y(j) * Y(j));
+            return 4.0 * (1.0 - Math.Pow(X(i), 2) - Math.Pow(Y(j), 2)) * Math.Exp(1.0 - Math.Pow(X(i), 2) - Math.Pow(Y(j), 2));
         }
     }
 }
