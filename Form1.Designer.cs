@@ -48,7 +48,6 @@
             this.IterLabel = new System.Windows.Forms.Label();
             this.AccMaxLabel = new System.Windows.Forms.Label();
             this.Table = new System.Windows.Forms.DataGridView();
-            this.TableMain = new System.Windows.Forms.DataGridView();
             this.DotLabel = new System.Windows.Forms.Label();
             this.MaxDifLabel = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -66,6 +65,21 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.maxDif = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.TableExact = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.TableDiffTest = new System.Windows.Forms.DataGridView();
+            this.label17 = new System.Windows.Forms.Label();
+            this.OmegaTextBox = new System.Windows.Forms.TextBox();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.TableHalf = new System.Windows.Forms.DataGridView();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.TableDiffMain = new System.Windows.Forms.DataGridView();
+            this.TableMain = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.Nbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NmaxBox)).BeginInit();
@@ -74,6 +88,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.XoBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XnBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Table)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TableExact)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TableDiffTest)).BeginInit();
+            this.tabControl2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TableHalf)).BeginInit();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TableDiffMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TableMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -111,7 +137,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(15, 323);
+            this.button1.Location = new System.Drawing.Point(15, 347);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(270, 52);
             this.button1.TabIndex = 5;
@@ -200,7 +226,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 241);
+            this.label7.Location = new System.Drawing.Point(13, 265);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(116, 13);
             this.label7.TabIndex = 16;
@@ -209,7 +235,7 @@
             // dsafgasdg
             // 
             this.dsafgasdg.AutoSize = true;
-            this.dsafgasdg.Location = new System.Drawing.Point(13, 265);
+            this.dsafgasdg.Location = new System.Drawing.Point(13, 289);
             this.dsafgasdg.Name = "dsafgasdg";
             this.dsafgasdg.Size = new System.Drawing.Size(123, 13);
             this.dsafgasdg.TabIndex = 17;
@@ -218,7 +244,7 @@
             // IterLabel
             // 
             this.IterLabel.AutoSize = true;
-            this.IterLabel.Location = new System.Drawing.Point(142, 241);
+            this.IterLabel.Location = new System.Drawing.Point(142, 265);
             this.IterLabel.Name = "IterLabel";
             this.IterLabel.Size = new System.Drawing.Size(13, 13);
             this.IterLabel.TabIndex = 18;
@@ -227,7 +253,7 @@
             // AccMaxLabel
             // 
             this.AccMaxLabel.AutoSize = true;
-            this.AccMaxLabel.Location = new System.Drawing.Point(142, 265);
+            this.AccMaxLabel.Location = new System.Drawing.Point(142, 289);
             this.AccMaxLabel.Name = "AccMaxLabel";
             this.AccMaxLabel.Size = new System.Drawing.Size(13, 13);
             this.AccMaxLabel.TabIndex = 19;
@@ -236,23 +262,15 @@
             // Table
             // 
             this.Table.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Table.Location = new System.Drawing.Point(307, 19);
+            this.Table.Location = new System.Drawing.Point(0, 0);
             this.Table.Name = "Table";
             this.Table.Size = new System.Drawing.Size(481, 356);
             this.Table.TabIndex = 0;
             // 
-            // TableMain
-            // 
-            this.TableMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.TableMain.Location = new System.Drawing.Point(307, 462);
-            this.TableMain.Name = "TableMain";
-            this.TableMain.Size = new System.Drawing.Size(481, 356);
-            this.TableMain.TabIndex = 23;
-            // 
             // DotLabel
             // 
             this.DotLabel.AutoSize = true;
-            this.DotLabel.Location = new System.Drawing.Point(13, 710);
+            this.DotLabel.Location = new System.Drawing.Point(13, 723);
             this.DotLabel.Name = "DotLabel";
             this.DotLabel.Size = new System.Drawing.Size(109, 13);
             this.DotLabel.TabIndex = 26;
@@ -261,7 +279,7 @@
             // MaxDifLabel
             // 
             this.MaxDifLabel.AutoSize = true;
-            this.MaxDifLabel.Location = new System.Drawing.Point(247, 688);
+            this.MaxDifLabel.Location = new System.Drawing.Point(247, 701);
             this.MaxDifLabel.Name = "MaxDifLabel";
             this.MaxDifLabel.Size = new System.Drawing.Size(13, 13);
             this.MaxDifLabel.TabIndex = 25;
@@ -270,7 +288,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 688);
+            this.label8.Location = new System.Drawing.Point(13, 701);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(228, 13);
             this.label8.TabIndex = 24;
@@ -278,7 +296,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 753);
+            this.button2.Location = new System.Drawing.Point(12, 766);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(270, 52);
             this.button2.TabIndex = 27;
@@ -289,7 +307,7 @@
             // AccMaxLabelMain
             // 
             this.AccMaxLabelMain.AutoSize = true;
-            this.AccMaxLabelMain.Location = new System.Drawing.Point(138, 517);
+            this.AccMaxLabelMain.Location = new System.Drawing.Point(138, 530);
             this.AccMaxLabelMain.Name = "AccMaxLabelMain";
             this.AccMaxLabelMain.Size = new System.Drawing.Size(13, 13);
             this.AccMaxLabelMain.TabIndex = 31;
@@ -298,7 +316,7 @@
             // IterLabelMain
             // 
             this.IterLabelMain.AutoSize = true;
-            this.IterLabelMain.Location = new System.Drawing.Point(138, 493);
+            this.IterLabelMain.Location = new System.Drawing.Point(138, 506);
             this.IterLabelMain.Name = "IterLabelMain";
             this.IterLabelMain.Size = new System.Drawing.Size(13, 13);
             this.IterLabelMain.TabIndex = 30;
@@ -307,7 +325,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 517);
+            this.label11.Location = new System.Drawing.Point(9, 530);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(123, 13);
             this.label11.TabIndex = 29;
@@ -316,7 +334,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 493);
+            this.label12.Location = new System.Drawing.Point(9, 506);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(116, 13);
             this.label12.TabIndex = 28;
@@ -326,7 +344,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(49, 462);
+            this.label9.Location = new System.Drawing.Point(49, 475);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(192, 13);
             this.label9.TabIndex = 32;
@@ -336,7 +354,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(58, 549);
+            this.label10.Location = new System.Drawing.Point(58, 562);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(0, 13);
             this.label10.TabIndex = 33;
@@ -344,7 +362,7 @@
             // AccMaxLabelMainHalf
             // 
             this.AccMaxLabelMainHalf.AutoSize = true;
-            this.AccMaxLabelMainHalf.Location = new System.Drawing.Point(138, 609);
+            this.AccMaxLabelMainHalf.Location = new System.Drawing.Point(138, 622);
             this.AccMaxLabelMainHalf.Name = "AccMaxLabelMainHalf";
             this.AccMaxLabelMainHalf.Size = new System.Drawing.Size(13, 13);
             this.AccMaxLabelMainHalf.TabIndex = 37;
@@ -353,7 +371,7 @@
             // IterLabelMainHalf
             // 
             this.IterLabelMainHalf.AutoSize = true;
-            this.IterLabelMainHalf.Location = new System.Drawing.Point(138, 585);
+            this.IterLabelMainHalf.Location = new System.Drawing.Point(138, 598);
             this.IterLabelMainHalf.Name = "IterLabelMainHalf";
             this.IterLabelMainHalf.Size = new System.Drawing.Size(13, 13);
             this.IterLabelMainHalf.TabIndex = 36;
@@ -362,7 +380,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(9, 609);
+            this.label15.Location = new System.Drawing.Point(9, 622);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(123, 13);
             this.label15.TabIndex = 35;
@@ -371,7 +389,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(9, 585);
+            this.label16.Location = new System.Drawing.Point(9, 598);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(116, 13);
             this.label16.TabIndex = 34;
@@ -381,7 +399,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(49, 212);
+            this.label13.Location = new System.Drawing.Point(49, 236);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(188, 13);
             this.label13.TabIndex = 38;
@@ -390,7 +408,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(13, 289);
+            this.label14.Location = new System.Drawing.Point(13, 313);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(114, 13);
             this.label14.TabIndex = 39;
@@ -399,17 +417,165 @@
             // maxDif
             // 
             this.maxDif.AutoSize = true;
-            this.maxDif.Location = new System.Drawing.Point(142, 289);
+            this.maxDif.Location = new System.Drawing.Point(142, 313);
             this.maxDif.Name = "maxDif";
             this.maxDif.Size = new System.Drawing.Size(13, 13);
             this.maxDif.TabIndex = 40;
             this.maxDif.Text = "0";
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(307, 19);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(489, 384);
+            this.tabControl1.TabIndex = 41;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.Table);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(481, 358);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "v(x, y)";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.TableExact);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(481, 358);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "u(x, y)";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // TableExact
+            // 
+            this.TableExact.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TableExact.Location = new System.Drawing.Point(0, 0);
+            this.TableExact.Name = "TableExact";
+            this.TableExact.Size = new System.Drawing.Size(481, 356);
+            this.TableExact.TabIndex = 1;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.TableDiffTest);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(481, 358);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "|u(x, y) - v(x, y)|";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // TableDiffTest
+            // 
+            this.TableDiffTest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TableDiffTest.Location = new System.Drawing.Point(0, 0);
+            this.TableDiffTest.Name = "TableDiffTest";
+            this.TableDiffTest.Size = new System.Drawing.Size(481, 356);
+            this.TableDiffTest.TabIndex = 2;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(12, 198);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(104, 13);
+            this.label17.TabIndex = 42;
+            this.label17.Text = "Параметр метода: ";
+            // 
+            // OmegaTextBox
+            // 
+            this.OmegaTextBox.Location = new System.Drawing.Point(140, 198);
+            this.OmegaTextBox.Name = "OmegaTextBox";
+            this.OmegaTextBox.Size = new System.Drawing.Size(120, 20);
+            this.OmegaTextBox.TabIndex = 43;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Controls.Add(this.tabPage6);
+            this.tabControl2.Location = new System.Drawing.Point(307, 434);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(489, 384);
+            this.tabControl2.TabIndex = 44;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.TableMain);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(481, 358);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "v1(x, y)";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.TableHalf);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(481, 358);
+            this.tabPage5.TabIndex = 2;
+            this.tabPage5.Text = "v2(x, y)";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // TableHalf
+            // 
+            this.TableHalf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TableHalf.Location = new System.Drawing.Point(0, 0);
+            this.TableHalf.Name = "TableHalf";
+            this.TableHalf.Size = new System.Drawing.Size(481, 356);
+            this.TableHalf.TabIndex = 1;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.TableDiffMain);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(481, 358);
+            this.tabPage6.TabIndex = 3;
+            this.tabPage6.Text = "|v1(x, y) - v2(x, y)|";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // TableDiffMain
+            // 
+            this.TableDiffMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TableDiffMain.Location = new System.Drawing.Point(0, 0);
+            this.TableDiffMain.Name = "TableDiffMain";
+            this.TableDiffMain.Size = new System.Drawing.Size(481, 356);
+            this.TableDiffMain.TabIndex = 2;
+            // 
+            // TableMain
+            // 
+            this.TableMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TableMain.Location = new System.Drawing.Point(0, 0);
+            this.TableMain.Name = "TableMain";
+            this.TableMain.Size = new System.Drawing.Size(481, 356);
+            this.TableMain.TabIndex = 23;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 830);
+            this.Controls.Add(this.tabControl2);
+            this.Controls.Add(this.OmegaTextBox);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.maxDif);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -427,7 +593,6 @@
             this.Controls.Add(this.DotLabel);
             this.Controls.Add(this.MaxDifLabel);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.TableMain);
             this.Controls.Add(this.AccMaxLabel);
             this.Controls.Add(this.IterLabel);
             this.Controls.Add(this.dsafgasdg);
@@ -447,7 +612,9 @@
             this.Controls.Add(this.Nbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Table);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.Nbox)).EndInit();
@@ -458,6 +625,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.XoBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XnBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Table)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TableExact)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TableDiffTest)).EndInit();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TableHalf)).EndInit();
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TableDiffMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TableMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -485,7 +664,6 @@
         private System.Windows.Forms.Label IterLabel;
         private System.Windows.Forms.Label AccMaxLabel;
         private System.Windows.Forms.DataGridView Table;
-        private System.Windows.Forms.DataGridView TableMain;
         private System.Windows.Forms.Label DotLabel;
         private System.Windows.Forms.Label MaxDifLabel;
         private System.Windows.Forms.Label label8;
@@ -503,6 +681,21 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label maxDif;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView TableExact;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView TableDiffTest;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox OmegaTextBox;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.DataGridView TableMain;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.DataGridView TableHalf;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.DataGridView TableDiffMain;
     }
 }
 

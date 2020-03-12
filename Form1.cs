@@ -56,16 +56,24 @@ namespace Dirihle
             YoBox.Value = -1;
             YnBox.Value = +1;
 
-            AccuracyBox.Text = "0.00001";
-            NmaxBox.Value = 100;
-            Nbox.Value = 3;
-            Mbox.Value = 3;
+            OmegaTextBox.Text = "1.0";
+            AccuracyBox.Text  = "0.00001";
+            NmaxBox.Value     = 100;
+            Nbox.Value        = 3;
+            Mbox.Value        = 3;
 
-            Table.RowHeadersVisible        = false;
-            Table.ColumnHeadersVisible     = false;
-            TableMain.RowHeadersVisible    = false;
-            TableMain.ColumnHeadersVisible = false;
-
+            Table.RowHeadersVisible            = false;
+            Table.ColumnHeadersVisible         = false;
+            TableMain.RowHeadersVisible        = false;
+            TableMain.ColumnHeadersVisible     = false;
+            TableExact.RowHeadersVisible       = false;
+            TableExact.ColumnHeadersVisible    = false;
+            TableDiffTest.RowHeadersVisible    = false;
+            TableDiffTest.ColumnHeadersVisible = false;
+            TableHalf.RowHeadersVisible        = false;
+            TableHalf.ColumnHeadersVisible     = false;
+            TableDiffMain.RowHeadersVisible    = false;
+            TableDiffMain.ColumnHeadersVisible = false;
 
             label10.Text = "При решении основной задачи \n" +
                            "        с половинным шагом";
@@ -196,6 +204,7 @@ namespace Dirihle
             M  = (uint)Mbox.Value;
             Nmax = (uint)NmaxBox.Value;
             acc_max = double.Parse(AccuracyBox.Text);
+            w = double.Parse(OmegaTextBox.Text);
 
             TopRelaxationMethod();
 
@@ -226,12 +235,16 @@ namespace Dirihle
 
             Table.Rows.Clear();
             Table.Columns.Clear();
+            TableExact.Rows.Clear();
+            TableExact.Columns.Clear();
 
             for (int i = 0; i < N + 1; ++i)
             {
                 if (Table.Columns.Count <= i)
                 {
                     Table.Columns.Add("", "");
+                    TableExact.Columns.Add("", "");
+                    TableDiffTest.Columns.Add("", "");
                 }
 
                 for (int j = 0; j < M + 1; ++j)
@@ -239,6 +252,8 @@ namespace Dirihle
                     if (Table.Rows.Count <= j)
                     {
                         Table.Rows.Add();
+                        TableExact.Rows.Add();
+                        TableDiffTest.Rows.Add();
                     }
                 }
             }
@@ -247,7 +262,12 @@ namespace Dirihle
             {
                 for (int j = 0; j < M + 1; ++j)
                 {
-                    Table.Rows[(int)M - j].Cells[i].Value = Math.Round(v[i, j], 3);
+                    double test_value  = v[i, j];
+                    double exact_value = FunctionExact((uint)i, (uint)j);
+
+                    Table.Rows[(int)M - j].Cells[i].Value         = Math.Round(test_value, 3);
+                    TableExact.Rows[(int)M - j].Cells[i].Value    = Math.Round(exact_value, 3);
+                    TableDiffTest.Rows[(int)M - j].Cells[i].Value = Math.Round(Math.Abs(test_value - exact_value), 3);
                 }
             }
         }
@@ -264,6 +284,7 @@ namespace Dirihle
             M  = (uint)Mbox.Value;
             Nmax = (uint)NmaxBox.Value;
             acc_max = double.Parse(AccuracyBox.Text);
+            w = double.Parse(OmegaTextBox.Text);
 
             TopRelaxationMethodMain();
 
@@ -274,12 +295,15 @@ namespace Dirihle
 
             TableMain.Rows.Clear();
             TableMain.Columns.Clear();
+            TableDiffMain.Rows.Clear();
+            TableDiffMain.Columns.Clear();
 
             for (int i = 0; i < N + 1; ++i)
             {
                 if (TableMain.Columns.Count <= i)
                 {
                     TableMain.Columns.Add("", "");
+                    TableDiffMain.Columns.Add("", "");
                 }
 
                 for (int j = 0; j < M + 1; ++j)
@@ -287,6 +311,7 @@ namespace Dirihle
                     if (TableMain.Rows.Count <= j)
                     {
                         TableMain.Rows.Add();
+                        TableDiffMain.Rows.Add();
                     }
                 }
             }
@@ -295,7 +320,8 @@ namespace Dirihle
             {
                 for (int j = 0; j < M + 1; ++j)
                 {
-                    TableMain.Rows[(int)M - j].Cells[i].Value = Math.Round(v[i, j], 3);
+                    TableMain.Rows[(int)M - j].Cells[i].Value     = Math.Round(v[i, j], 3);
+                    TableDiffMain.Rows[(int)M - j].Cells[i].Value = 0.0;
                 }
             }
 
@@ -305,6 +331,33 @@ namespace Dirihle
             M *= 2;
 
             TopRelaxationMethodMain();
+
+            TableHalf.Rows.Clear();
+            TableHalf.Columns.Clear();
+
+            for (int i = 0; i < N + 1; ++i)
+            {
+                if (TableHalf.Columns.Count <= i)
+                {
+                    TableHalf.Columns.Add("", "");
+                }
+
+                for (int j = 0; j < M + 1; ++j)
+                {
+                    if (TableHalf.Rows.Count <= j)
+                    {
+                        TableHalf.Rows.Add();
+                    }
+                }
+            }
+
+            for (int i = 0; i < N + 1; ++i)
+            {
+                for (int j = 0; j < M + 1; ++j)
+                {
+                    TableHalf.Rows[(int)M - j].Cells[i].Value = Math.Round(v[i, j], 3);
+                }
+            }
 
             IterLabelMainHalf.Text   = counter.ToString();
             AccMaxLabelMainHalf.Text = accuracy.ToString();
@@ -325,6 +378,8 @@ namespace Dirihle
                         max_i = iHalf;
                         max_j = jHalf;
                     }
+
+                    TableDiffMain.Rows[(int)M / 2 - jStep].Cells[iStep].Value = cur_dif;
                 }
             }
 
