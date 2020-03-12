@@ -62,6 +62,7 @@ namespace Dirihle
             Nbox.Value        = 3;
             Mbox.Value        = 3;
 
+            ZeroApprocsimationCheckBox.Checked = true;
             Table.RowHeadersVisible            = false;
             Table.ColumnHeadersVisible         = false;
             TableMain.RowHeadersVisible        = false;
@@ -89,6 +90,19 @@ namespace Dirihle
             k = (Yn - Yo) / M;
             k2 = -Math.Pow(M / (Yn - Yo), 2);
             a2 = -2.0 * (h2 + k2);
+
+            if(ZeroApprocsimationCheckBox.Checked)
+            {
+                ZeroApprocsimation();
+            }
+            else if(XInterpolationCheckBox.Checked)
+            {
+                XInterpolation();
+            }
+            else
+            {
+                YInterpolation();
+            }
 
             for (uint i = 0u; i < N + 1; ++i)
             {
@@ -147,12 +161,17 @@ namespace Dirihle
             k2 = -Math.Pow(M / (Yn - Yo), 2);
             a2 = -2.0 * (h2 + k2);
 
-            for(uint i = 0u; i < N + 1; ++i)
+            if (ZeroApprocsimationCheckBox.Checked)
             {
-                for(uint j = 0u; j < M + 1; ++j)
-                {
-                    v[i, j] = VMain(i, j);
-                }
+                ZeroApprocsimationMain();
+            }
+            else if (XInterpolationCheckBox.Checked)
+            {
+                XInterpolationMain();
+            }
+            else
+            {
+                YInterpolationMain();
             }
 
             double current_accuracy;
@@ -208,7 +227,6 @@ namespace Dirihle
 
             TopRelaxationMethod();
 
-            // TODO: Add accuracy calculation
             double max_dif = 0.0;
             uint max_i = 0;
             uint max_j = 0;
@@ -499,6 +517,140 @@ namespace Dirihle
         private double FunctionMain(uint i, uint j)
         {
             return -Math.Abs(Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0));
+        }
+
+
+        private void ZeroApprocsimation()
+        {
+            for(uint i = 0u; i < N + 1; ++i)
+            {
+                for(uint j = 0u; j < M + 1; ++j)
+                {
+                    v[i, j] = 0.0;
+                }
+            }
+
+            TestTypeTextBox.Text = "Использовалось нулевое приближение";
+        }
+
+
+        private void ZeroApprocsimationMain()
+        {
+            for (uint i = 0u; i < N + 1; ++i)
+            {
+                for (uint j = 0u; j < M + 1; ++j)
+                {
+                    v[i, j] = 0.0;
+                }
+            }
+
+            MainTypeTextBox.Text = "Использовалось нулевое приближение";
+        }
+
+
+        private void XInterpolation()
+        {
+            for (uint i = 1u; i < N; ++i)
+            {
+                for (uint j = 1u; j < M; ++j)
+                {
+                    v[i, j] = ((Xo + i * h) - Xo) / (Xn - Xo) * mu2(Yo + j * k) +
+                              ((Xo + i * h) - Xn) / (Xo - Xn) * mu1(Yo + j * k);
+                }
+            }
+
+            TestTypeTextBox.Text = "Использовалась интерполяция по x";            
+        }
+
+
+        private void XInterpolationMain()
+        {
+            for (uint i = 1u; i < N; ++i)
+            {
+                for (uint j = 1u; j < M; ++j)
+                {
+                    v[i, j] = ((Xo + i * h) - Xo) / (Xn - Xo) * mu2Main(Yo + j * k) +
+                              ((Xo + i * h) - Xn) / (Xo - Xn) * mu1Main(Yo + j * k);
+                }
+            }
+
+            MainTypeTextBox.Text = "Использовалась интерполяция по x";
+        }
+
+
+        private void YInterpolation()
+        {
+            for (uint i = 1u; i < N; ++i)
+            {
+                for (uint j = 1u; j < M; ++j)
+                {
+                    v[i, j] = ((Yo + j * k) - Yo) / (Yn - Yo) * mu4(Xo + i * h) +
+                              ((Yo + j * k) - Yn) / (Yo - Yn) * mu3(Xo + i * h);
+                }
+            }
+
+            TestTypeTextBox.Text = "Использовалась интерполяция по y";
+        }
+
+
+        private void YInterpolationMain()
+        {
+            for (uint i = 1u; i < N; ++i)
+            {
+                for (uint j = 1u; j < M; ++j)
+                {
+                    v[i, j] = ((Yo + j * k) - Yo) / (Yn - Yo) * mu4Main(Xo + i * h) +
+                              ((Yo + j * k) - Yn) / (Yo - Yn) * mu3Main(Xo + i * h);
+                }
+            }
+
+            MainTypeTextBox.Text = "Использовалась интерполяция по y";
+        }
+
+
+        private void ZeroApprocsimationCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            if(checkBox.Checked)
+            {
+                XInterpolationCheckBox.Checked = false;
+                YInterpolationCheckBox.Checked = false;
+            }
+            else if(!XInterpolationCheckBox.Checked && !YInterpolationCheckBox.Checked)
+            {
+                ZeroApprocsimationCheckBox.Checked = true;
+            }
+        }
+
+        private void XInterpolationCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            if (checkBox.Checked)
+            {
+                ZeroApprocsimationCheckBox.Checked = false;
+                YInterpolationCheckBox.Checked     = false;
+            }
+            else if (!ZeroApprocsimationCheckBox.Checked && !YInterpolationCheckBox.Checked)
+            {
+                XInterpolationCheckBox.Checked = true;
+            }
+        }
+
+        private void YInterpolationCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            if (checkBox.Checked)
+            {
+                ZeroApprocsimationCheckBox.Checked = false;
+                XInterpolationCheckBox.Checked = false;
+            }
+            else if (!ZeroApprocsimationCheckBox.Checked && !XInterpolationCheckBox.Checked)
+            {
+                YInterpolationCheckBox.Checked = true;
+            }
         }
     }
 }
