@@ -212,6 +212,7 @@ namespace Dirihle
             } while ((Nmax > counter) && (accuracy >= acc_max));
         }
 
+
         // Test task
         private void button1_Click(object sender, EventArgs e)
         {
@@ -226,6 +227,18 @@ namespace Dirihle
             w = double.Parse(OmegaTextBox.Text);
 
             TopRelaxationMethod();
+
+            double R = 0.0;
+
+            for (uint j = 1u; j < M; ++j)
+            {
+                for (uint i = 1u; i < N; ++i)
+                {
+                    R += Math.Pow(a2 * v[i, j] + h2 * (v[i - 1, j] + v[i + 1, j]) + k2 * (v[i, j - 1] + v[i, j + 1]) + Function(i, j), 2.0);
+                }
+            }
+
+            ResidualTextBox.Text = Math.Sqrt(R).ToString();
 
             double max_dif = 0.0;
             uint max_i = 0;
@@ -308,8 +321,19 @@ namespace Dirihle
 
             TopRelaxationMethodMain();
 
-            IterLabelMain.Text   = counter.ToString();
-            AccMaxLabelMain.Text = accuracy.ToString();
+            double R = 0.0;
+
+            for (uint j = 1u; j < M; ++j)
+            {
+                for (uint i = 1u; i < N; ++i)
+                {
+                    R += Math.Pow(a2 * v[i, j] + h2 * (v[i - 1, j] + v[i + 1, j]) + k2 * (v[i, j - 1] + v[i, j + 1]) + FunctionMain(i, j), 2.0);
+                }
+            }
+
+            ResidualMainTextBox.Text = Math.Sqrt(R).ToString();
+            IterLabelMain.Text       = counter.ToString();
+            AccMaxLabelMain.Text     = accuracy.ToString();
 
             double[,] vStep = (double[,])v.Clone();
 
@@ -351,6 +375,18 @@ namespace Dirihle
             M *= 2;
 
             TopRelaxationMethodMain();
+
+            R = 0.0;
+
+            for (uint j = 1u; j < M; ++j)
+            {
+                for (uint i = 1u; i < N; ++i)
+                {
+                    R += Math.Pow(a2 * v[i, j] + h2 * (v[i - 1, j] + v[i + 1, j]) + k2 * (v[i, j - 1] + v[i, j + 1]) + FunctionMain(i, j), 2.0);
+                }
+            }
+
+            ResidualHalfTextBox.Text = Math.Sqrt(R).ToString();
 
             TableHalf.Rows.Clear();
             TableHalf.Columns.Clear();
@@ -505,10 +541,10 @@ namespace Dirihle
 
         private double Function(uint i, uint j)
         {
-            return (4.0 * Math.Pow(X(i), 2.0) * Math.Exp(-Math.Pow(X(i), 2.0) -
-                          Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0) +
+            return (4.0 *  Math.Pow(X(i), 2.0) * Math.Exp(-Math.Pow(X(i), 2.0) -
+                           Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0) +
                    ((4.0 * Math.Pow(Y(j), 2.0) * Math.Exp(-Math.Pow(X(i), 2.0) -
-                          Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0));
+                           Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0));
         }
 
         private double FunctionExact(uint i, uint j)

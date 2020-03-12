@@ -88,6 +88,12 @@
             this.YInterpolationCheckBox = new System.Windows.Forms.CheckBox();
             this.TestTypeTextBox = new System.Windows.Forms.Label();
             this.MainTypeTextBox = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.ResidualTextBox = new System.Windows.Forms.Label();
+            this.ResidualMainTextBox = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.ResidualHalfTextBox = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Nbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NmaxBox)).BeginInit();
@@ -234,7 +240,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 299);
+            this.label7.Location = new System.Drawing.Point(13, 280);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(116, 13);
             this.label7.TabIndex = 16;
@@ -243,7 +249,7 @@
             // dsafgasdg
             // 
             this.dsafgasdg.AutoSize = true;
-            this.dsafgasdg.Location = new System.Drawing.Point(13, 323);
+            this.dsafgasdg.Location = new System.Drawing.Point(13, 304);
             this.dsafgasdg.Name = "dsafgasdg";
             this.dsafgasdg.Size = new System.Drawing.Size(123, 13);
             this.dsafgasdg.TabIndex = 17;
@@ -252,7 +258,7 @@
             // IterLabel
             // 
             this.IterLabel.AutoSize = true;
-            this.IterLabel.Location = new System.Drawing.Point(142, 299);
+            this.IterLabel.Location = new System.Drawing.Point(142, 280);
             this.IterLabel.Name = "IterLabel";
             this.IterLabel.Size = new System.Drawing.Size(13, 13);
             this.IterLabel.TabIndex = 18;
@@ -261,7 +267,7 @@
             // AccMaxLabel
             // 
             this.AccMaxLabel.AutoSize = true;
-            this.AccMaxLabel.Location = new System.Drawing.Point(142, 323);
+            this.AccMaxLabel.Location = new System.Drawing.Point(142, 304);
             this.AccMaxLabel.Name = "AccMaxLabel";
             this.AccMaxLabel.Size = new System.Drawing.Size(13, 13);
             this.AccMaxLabel.TabIndex = 19;
@@ -362,7 +368,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(58, 611);
+            this.label10.Location = new System.Drawing.Point(58, 630);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(0, 13);
             this.label10.TabIndex = 33;
@@ -370,7 +376,7 @@
             // AccMaxLabelMainHalf
             // 
             this.AccMaxLabelMainHalf.AutoSize = true;
-            this.AccMaxLabelMainHalf.Location = new System.Drawing.Point(138, 671);
+            this.AccMaxLabelMainHalf.Location = new System.Drawing.Point(138, 690);
             this.AccMaxLabelMainHalf.Name = "AccMaxLabelMainHalf";
             this.AccMaxLabelMainHalf.Size = new System.Drawing.Size(13, 13);
             this.AccMaxLabelMainHalf.TabIndex = 37;
@@ -379,7 +385,7 @@
             // IterLabelMainHalf
             // 
             this.IterLabelMainHalf.AutoSize = true;
-            this.IterLabelMainHalf.Location = new System.Drawing.Point(138, 647);
+            this.IterLabelMainHalf.Location = new System.Drawing.Point(138, 666);
             this.IterLabelMainHalf.Name = "IterLabelMainHalf";
             this.IterLabelMainHalf.Size = new System.Drawing.Size(13, 13);
             this.IterLabelMainHalf.TabIndex = 36;
@@ -388,7 +394,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(9, 671);
+            this.label15.Location = new System.Drawing.Point(9, 690);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(123, 13);
             this.label15.TabIndex = 35;
@@ -397,7 +403,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(9, 647);
+            this.label16.Location = new System.Drawing.Point(9, 666);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(116, 13);
             this.label16.TabIndex = 34;
@@ -407,7 +413,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(49, 270);
+            this.label13.Location = new System.Drawing.Point(49, 257);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(188, 13);
             this.label13.TabIndex = 38;
@@ -416,7 +422,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(13, 347);
+            this.label14.Location = new System.Drawing.Point(13, 328);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(114, 13);
             this.label14.TabIndex = 39;
@@ -425,7 +431,7 @@
             // maxDif
             // 
             this.maxDif.AutoSize = true;
-            this.maxDif.Location = new System.Drawing.Point(142, 347);
+            this.maxDif.Location = new System.Drawing.Point(142, 328);
             this.maxDif.Name = "maxDif";
             this.maxDif.Size = new System.Drawing.Size(13, 13);
             this.maxDif.TabIndex = 40;
@@ -578,7 +584,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(12, 171);
+            this.label18.Location = new System.Drawing.Point(12, 158);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(121, 13);
             this.label18.TabIndex = 45;
@@ -587,7 +593,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(13, 203);
+            this.label19.Location = new System.Drawing.Point(13, 190);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(103, 13);
             this.label19.TabIndex = 46;
@@ -596,7 +602,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(13, 233);
+            this.label20.Location = new System.Drawing.Point(13, 220);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(103, 13);
             this.label20.TabIndex = 47;
@@ -605,7 +611,7 @@
             // ZeroApprocsimationCheckBox
             // 
             this.ZeroApprocsimationCheckBox.AutoSize = true;
-            this.ZeroApprocsimationCheckBox.Location = new System.Drawing.Point(145, 171);
+            this.ZeroApprocsimationCheckBox.Location = new System.Drawing.Point(145, 158);
             this.ZeroApprocsimationCheckBox.Name = "ZeroApprocsimationCheckBox";
             this.ZeroApprocsimationCheckBox.Size = new System.Drawing.Size(15, 14);
             this.ZeroApprocsimationCheckBox.TabIndex = 48;
@@ -615,7 +621,7 @@
             // XInterpolationCheckBox
             // 
             this.XInterpolationCheckBox.AutoSize = true;
-            this.XInterpolationCheckBox.Location = new System.Drawing.Point(145, 203);
+            this.XInterpolationCheckBox.Location = new System.Drawing.Point(145, 190);
             this.XInterpolationCheckBox.Name = "XInterpolationCheckBox";
             this.XInterpolationCheckBox.Size = new System.Drawing.Size(15, 14);
             this.XInterpolationCheckBox.TabIndex = 49;
@@ -625,7 +631,7 @@
             // YInterpolationCheckBox
             // 
             this.YInterpolationCheckBox.AutoSize = true;
-            this.YInterpolationCheckBox.Location = new System.Drawing.Point(145, 233);
+            this.YInterpolationCheckBox.Location = new System.Drawing.Point(145, 220);
             this.YInterpolationCheckBox.Name = "YInterpolationCheckBox";
             this.YInterpolationCheckBox.Size = new System.Drawing.Size(15, 14);
             this.YInterpolationCheckBox.TabIndex = 50;
@@ -648,11 +654,71 @@
             this.MainTypeTextBox.Size = new System.Drawing.Size(0, 13);
             this.MainTypeTextBox.TabIndex = 52;
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(13, 350);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(57, 13);
+            this.label21.TabIndex = 53;
+            this.label21.Text = "Невязка: ";
+            // 
+            // ResidualTextBox
+            // 
+            this.ResidualTextBox.AutoSize = true;
+            this.ResidualTextBox.Location = new System.Drawing.Point(142, 350);
+            this.ResidualTextBox.Name = "ResidualTextBox";
+            this.ResidualTextBox.Size = new System.Drawing.Size(13, 13);
+            this.ResidualTextBox.TabIndex = 54;
+            this.ResidualTextBox.Text = "0";
+            // 
+            // ResidualMainTextBox
+            // 
+            this.ResidualMainTextBox.AutoSize = true;
+            this.ResidualMainTextBox.Location = new System.Drawing.Point(138, 603);
+            this.ResidualMainTextBox.Name = "ResidualMainTextBox";
+            this.ResidualMainTextBox.Size = new System.Drawing.Size(13, 13);
+            this.ResidualMainTextBox.TabIndex = 56;
+            this.ResidualMainTextBox.Text = "0";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(9, 603);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(57, 13);
+            this.label23.TabIndex = 55;
+            this.label23.Text = "Невязка: ";
+            // 
+            // ResidualHalfTextBox
+            // 
+            this.ResidualHalfTextBox.AutoSize = true;
+            this.ResidualHalfTextBox.Location = new System.Drawing.Point(138, 712);
+            this.ResidualHalfTextBox.Name = "ResidualHalfTextBox";
+            this.ResidualHalfTextBox.Size = new System.Drawing.Size(13, 13);
+            this.ResidualHalfTextBox.TabIndex = 58;
+            this.ResidualHalfTextBox.Text = "0";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(9, 712);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(57, 13);
+            this.label24.TabIndex = 57;
+            this.label24.Text = "Невязка: ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 879);
+            this.Controls.Add(this.ResidualHalfTextBox);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.ResidualMainTextBox);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.ResidualTextBox);
+            this.Controls.Add(this.label21);
             this.Controls.Add(this.MainTypeTextBox);
             this.Controls.Add(this.TestTypeTextBox);
             this.Controls.Add(this.YInterpolationCheckBox);
@@ -793,6 +859,12 @@
         private System.Windows.Forms.CheckBox YInterpolationCheckBox;
         private System.Windows.Forms.Label TestTypeTextBox;
         private System.Windows.Forms.Label MainTypeTextBox;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label ResidualTextBox;
+        private System.Windows.Forms.Label ResidualMainTextBox;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label ResidualHalfTextBox;
+        private System.Windows.Forms.Label label24;
     }
 }
 
