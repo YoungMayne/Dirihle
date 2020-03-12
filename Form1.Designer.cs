@@ -47,10 +47,23 @@
             this.dsafgasdg = new System.Windows.Forms.Label();
             this.IterLabel = new System.Windows.Forms.Label();
             this.AccMaxLabel = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.MaxDifLabel = new System.Windows.Forms.Label();
-            this.DotLabel = new System.Windows.Forms.Label();
             this.Table = new System.Windows.Forms.DataGridView();
+            this.TableMain = new System.Windows.Forms.DataGridView();
+            this.DotLabel = new System.Windows.Forms.Label();
+            this.MaxDifLabel = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.AccMaxLabelMain = new System.Windows.Forms.Label();
+            this.IterLabelMain = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.AccMaxLabelMainHalf = new System.Windows.Forms.Label();
+            this.IterLabelMainHalf = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Nbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NmaxBox)).BeginInit();
@@ -59,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.XoBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XnBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Table)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TableMain)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -95,11 +109,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(15, 386);
+            this.button1.Location = new System.Drawing.Point(15, 323);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(270, 52);
             this.button1.TabIndex = 5;
-            this.button1.Text = "Решить";
+            this.button1.Text = "Решить тестовую задачу";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -184,7 +198,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(304, 9);
+            this.label7.Location = new System.Drawing.Point(13, 271);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(116, 13);
             this.label7.TabIndex = 16;
@@ -193,7 +207,7 @@
             // dsafgasdg
             // 
             this.dsafgasdg.AutoSize = true;
-            this.dsafgasdg.Location = new System.Drawing.Point(304, 33);
+            this.dsafgasdg.Location = new System.Drawing.Point(13, 295);
             this.dsafgasdg.Name = "dsafgasdg";
             this.dsafgasdg.Size = new System.Drawing.Size(123, 13);
             this.dsafgasdg.TabIndex = 17;
@@ -202,7 +216,7 @@
             // IterLabel
             // 
             this.IterLabel.AutoSize = true;
-            this.IterLabel.Location = new System.Drawing.Point(433, 9);
+            this.IterLabel.Location = new System.Drawing.Point(142, 271);
             this.IterLabel.Name = "IterLabel";
             this.IterLabel.Size = new System.Drawing.Size(13, 13);
             this.IterLabel.TabIndex = 18;
@@ -211,55 +225,187 @@
             // AccMaxLabel
             // 
             this.AccMaxLabel.AutoSize = true;
-            this.AccMaxLabel.Location = new System.Drawing.Point(433, 33);
+            this.AccMaxLabel.Location = new System.Drawing.Point(142, 295);
             this.AccMaxLabel.Name = "AccMaxLabel";
             this.AccMaxLabel.Size = new System.Drawing.Size(13, 13);
             this.AccMaxLabel.TabIndex = 19;
             this.AccMaxLabel.Text = "0";
             // 
-            // label8
+            // Table
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(304, 60);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(228, 13);
-            this.label8.TabIndex = 20;
-            this.label8.Text = "Максимальная разница двух приближений:";
+            this.Table.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Table.Location = new System.Drawing.Point(307, 19);
+            this.Table.Name = "Table";
+            this.Table.Size = new System.Drawing.Size(481, 356);
+            this.Table.TabIndex = 0;
             // 
-            // MaxDifLabel
+            // TableMain
             // 
-            this.MaxDifLabel.AutoSize = true;
-            this.MaxDifLabel.Location = new System.Drawing.Point(538, 60);
-            this.MaxDifLabel.Name = "MaxDifLabel";
-            this.MaxDifLabel.Size = new System.Drawing.Size(13, 13);
-            this.MaxDifLabel.TabIndex = 21;
-            this.MaxDifLabel.Text = "0";
+            this.TableMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TableMain.Location = new System.Drawing.Point(307, 462);
+            this.TableMain.Name = "TableMain";
+            this.TableMain.Size = new System.Drawing.Size(481, 356);
+            this.TableMain.TabIndex = 23;
             // 
             // DotLabel
             // 
             this.DotLabel.AutoSize = true;
-            this.DotLabel.Location = new System.Drawing.Point(304, 82);
+            this.DotLabel.Location = new System.Drawing.Point(13, 710);
             this.DotLabel.Name = "DotLabel";
             this.DotLabel.Size = new System.Drawing.Size(45, 13);
-            this.DotLabel.TabIndex = 22;
+            this.DotLabel.TabIndex = 26;
             this.DotLabel.Text = "В точке";
             // 
-            // Table
+            // MaxDifLabel
             // 
-            this.Table.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Table.Location = new System.Drawing.Point(307, 106);
-            this.Table.Name = "Table";
-            this.Table.Size = new System.Drawing.Size(481, 332);
-            this.Table.TabIndex = 0;
+            this.MaxDifLabel.AutoSize = true;
+            this.MaxDifLabel.Location = new System.Drawing.Point(247, 688);
+            this.MaxDifLabel.Name = "MaxDifLabel";
+            this.MaxDifLabel.Size = new System.Drawing.Size(13, 13);
+            this.MaxDifLabel.TabIndex = 25;
+            this.MaxDifLabel.Text = "0";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(13, 688);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(228, 13);
+            this.label8.TabIndex = 24;
+            this.label8.Text = "Максимальная разница двух приближений:";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(12, 753);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(270, 52);
+            this.button2.TabIndex = 27;
+            this.button2.Text = "Решить основную задачу";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // AccMaxLabelMain
+            // 
+            this.AccMaxLabelMain.AutoSize = true;
+            this.AccMaxLabelMain.Location = new System.Drawing.Point(138, 517);
+            this.AccMaxLabelMain.Name = "AccMaxLabelMain";
+            this.AccMaxLabelMain.Size = new System.Drawing.Size(13, 13);
+            this.AccMaxLabelMain.TabIndex = 31;
+            this.AccMaxLabelMain.Text = "0";
+            // 
+            // IterLabelMain
+            // 
+            this.IterLabelMain.AutoSize = true;
+            this.IterLabelMain.Location = new System.Drawing.Point(138, 493);
+            this.IterLabelMain.Name = "IterLabelMain";
+            this.IterLabelMain.Size = new System.Drawing.Size(13, 13);
+            this.IterLabelMain.TabIndex = 30;
+            this.IterLabelMain.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 517);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(123, 13);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Достигнутая точность:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 493);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(116, 13);
+            this.label12.TabIndex = 28;
+            this.label12.Text = "Проведено итераций:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(49, 462);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(192, 13);
+            this.label9.TabIndex = 32;
+            this.label9.Text = "При решении основный задачи";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.Location = new System.Drawing.Point(58, 549);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(0, 13);
+            this.label10.TabIndex = 33;
+            // 
+            // AccMaxLabelMainHalf
+            // 
+            this.AccMaxLabelMainHalf.AutoSize = true;
+            this.AccMaxLabelMainHalf.Location = new System.Drawing.Point(138, 609);
+            this.AccMaxLabelMainHalf.Name = "AccMaxLabelMainHalf";
+            this.AccMaxLabelMainHalf.Size = new System.Drawing.Size(13, 13);
+            this.AccMaxLabelMainHalf.TabIndex = 37;
+            this.AccMaxLabelMainHalf.Text = "0";
+            // 
+            // IterLabelMainHalf
+            // 
+            this.IterLabelMainHalf.AutoSize = true;
+            this.IterLabelMainHalf.Location = new System.Drawing.Point(138, 585);
+            this.IterLabelMainHalf.Name = "IterLabelMainHalf";
+            this.IterLabelMainHalf.Size = new System.Drawing.Size(13, 13);
+            this.IterLabelMainHalf.TabIndex = 36;
+            this.IterLabelMainHalf.Text = "0";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(9, 609);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(123, 13);
+            this.label15.TabIndex = 35;
+            this.label15.Text = "Достигнутая точность:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(9, 585);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(116, 13);
+            this.label16.TabIndex = 34;
+            this.label16.Text = "Проведено итераций:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(49, 242);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(188, 13);
+            this.label13.TabIndex = 38;
+            this.label13.Text = "При решении тестовой задачи";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 830);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.AccMaxLabelMainHalf);
+            this.Controls.Add(this.IterLabelMainHalf);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.AccMaxLabelMain);
+            this.Controls.Add(this.IterLabelMain);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.DotLabel);
             this.Controls.Add(this.MaxDifLabel);
             this.Controls.Add(this.label8);
+            this.Controls.Add(this.TableMain);
             this.Controls.Add(this.AccMaxLabel);
             this.Controls.Add(this.IterLabel);
             this.Controls.Add(this.dsafgasdg);
@@ -290,6 +436,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.XoBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.XnBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Table)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TableMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,10 +462,23 @@
         private System.Windows.Forms.Label dsafgasdg;
         private System.Windows.Forms.Label IterLabel;
         private System.Windows.Forms.Label AccMaxLabel;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label MaxDifLabel;
-        private System.Windows.Forms.Label DotLabel;
         private System.Windows.Forms.DataGridView Table;
+        private System.Windows.Forms.DataGridView TableMain;
+        private System.Windows.Forms.Label DotLabel;
+        private System.Windows.Forms.Label MaxDifLabel;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label AccMaxLabelMain;
+        private System.Windows.Forms.Label IterLabelMain;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label AccMaxLabelMainHalf;
+        private System.Windows.Forms.Label IterLabelMainHalf;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label13;
     }
 }
 
