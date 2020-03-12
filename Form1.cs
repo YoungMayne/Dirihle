@@ -255,6 +255,8 @@ namespace Dirihle
             Table.Columns.Clear();
             TableExact.Rows.Clear();
             TableExact.Columns.Clear();
+            TableDiffTest.Rows.Clear();
+            TableDiffTest.Columns.Clear();
 
             for (int i = 0; i < N + 1; ++i)
             {
