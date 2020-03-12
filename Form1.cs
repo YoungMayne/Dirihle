@@ -199,10 +199,30 @@ namespace Dirihle
 
             TopRelaxationMethod();
 
-            IterLabel.Text       = counter.ToString();
-            //AccMaxLabelMain.Text = accuracy.ToString();
+            // TODO: Add accuracy calculation
+            double max_dif = 0.0;
+            uint max_i = 0;
+            uint max_j = 0;
 
-            double[,] vStep = new double[N + 1, M + 1];
+            for (uint i = 0; i < N + 1; ++i)
+            {
+                for (uint j = 0; j < M + 1; ++j)
+                {
+                    double cur_dif = Math.Abs(FunctionExact(i, j) - v[i, j]);
+
+                    if (cur_dif > max_dif)
+                    {
+                        max_dif = cur_dif;
+                        max_i = i;
+                        max_j = j;
+                    }
+                }
+            }
+
+
+            IterLabel.Text   = counter.ToString();
+            AccMaxLabel.Text = accuracy.ToString();
+            maxDif.Text      = max_dif.ToString();
 
             Table.Rows.Clear();
             Table.Columns.Clear();
@@ -220,8 +240,6 @@ namespace Dirihle
                     {
                         Table.Rows.Add();
                     }
-
-                    vStep[i, j] = v[i, j];
                 }
             }
 
@@ -232,10 +250,6 @@ namespace Dirihle
                     Table.Rows[(int)M - j].Cells[i].Value = Math.Round(v[i, j], 3);
                 }
             }
-
-
-            // TODO: Add accuracy calculation
-
         }
 
 
@@ -301,12 +315,10 @@ namespace Dirihle
 
             for (int iStep = 1, iHalf = 2; (iStep < N / 2) && (iHalf < N); ++iStep, iHalf += 2)
             {
-                for (int jStep = 1, jHalf = 2; (jStep < N / 2) && (jHalf < N); ++jStep, jHalf += 2)
+                for (int jStep = 1, jHalf = 2; (jStep < M / 2) && (jHalf < M); ++jStep, jHalf += 2)
                 {
                     double cur_dif = Math.Abs(vStep[iStep, jStep] - v[iHalf, jHalf]);
 
-                    Console.WriteLine(vStep[iStep, jStep]);
-                    Console.WriteLine(v[iHalf, jHalf]);
                     if (cur_dif > max_dif)
                     {
                         max_dif = cur_dif;
@@ -317,8 +329,8 @@ namespace Dirihle
             }
 
             MaxDifLabel.Text = Math.Round(max_dif, 7).ToString();
-            DotLabel.Text    = "Соответсвует узлу x = " + Math.Round(Math.Abs(X((uint)max_i)), 3).ToString() + 
-                                               "  y = " + Math.Round(Math.Abs(Y((uint)max_j)), 3).ToString();
+            DotLabel.Text    = "Соответствует узлу x = " + Math.Round(Math.Abs(X((uint)max_i)), 3).ToString() + 
+                                                "  y = " + Math.Round(Math.Abs(Y((uint)max_j)), 3).ToString();
         }
 
 
@@ -422,6 +434,11 @@ namespace Dirihle
                           Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0) +
                    ((4.0 * Math.Pow(Y(j), 2.0) * Math.Exp(-Math.Pow(X(i), 2.0) -
                           Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0));
+        }
+
+        private double FunctionExact(uint i, uint j)
+        {
+            return Math.Exp(1.0 - Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0));
         }
 
         private double FunctionMain(uint i, uint j)

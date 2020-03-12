@@ -64,6 +64,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.maxDif = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Nbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NmaxBox)).BeginInit();
@@ -198,7 +200,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 271);
+            this.label7.Location = new System.Drawing.Point(13, 241);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(116, 13);
             this.label7.TabIndex = 16;
@@ -207,7 +209,7 @@
             // dsafgasdg
             // 
             this.dsafgasdg.AutoSize = true;
-            this.dsafgasdg.Location = new System.Drawing.Point(13, 295);
+            this.dsafgasdg.Location = new System.Drawing.Point(13, 265);
             this.dsafgasdg.Name = "dsafgasdg";
             this.dsafgasdg.Size = new System.Drawing.Size(123, 13);
             this.dsafgasdg.TabIndex = 17;
@@ -216,7 +218,7 @@
             // IterLabel
             // 
             this.IterLabel.AutoSize = true;
-            this.IterLabel.Location = new System.Drawing.Point(142, 271);
+            this.IterLabel.Location = new System.Drawing.Point(142, 241);
             this.IterLabel.Name = "IterLabel";
             this.IterLabel.Size = new System.Drawing.Size(13, 13);
             this.IterLabel.TabIndex = 18;
@@ -225,7 +227,7 @@
             // AccMaxLabel
             // 
             this.AccMaxLabel.AutoSize = true;
-            this.AccMaxLabel.Location = new System.Drawing.Point(142, 295);
+            this.AccMaxLabel.Location = new System.Drawing.Point(142, 265);
             this.AccMaxLabel.Name = "AccMaxLabel";
             this.AccMaxLabel.Size = new System.Drawing.Size(13, 13);
             this.AccMaxLabel.TabIndex = 19;
@@ -252,9 +254,9 @@
             this.DotLabel.AutoSize = true;
             this.DotLabel.Location = new System.Drawing.Point(13, 710);
             this.DotLabel.Name = "DotLabel";
-            this.DotLabel.Size = new System.Drawing.Size(45, 13);
+            this.DotLabel.Size = new System.Drawing.Size(109, 13);
             this.DotLabel.TabIndex = 26;
-            this.DotLabel.Text = "В точке";
+            this.DotLabel.Text = "Соответствует узлу ";
             // 
             // MaxDifLabel
             // 
@@ -379,17 +381,37 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(49, 242);
+            this.label13.Location = new System.Drawing.Point(49, 212);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(188, 13);
             this.label13.TabIndex = 38;
             this.label13.Text = "При решении тестовой задачи";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 289);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(114, 13);
+            this.label14.TabIndex = 39;
+            this.label14.Text = "Решена с точностью:";
+            // 
+            // maxDif
+            // 
+            this.maxDif.AutoSize = true;
+            this.maxDif.Location = new System.Drawing.Point(142, 289);
+            this.maxDif.Name = "maxDif";
+            this.maxDif.Size = new System.Drawing.Size(13, 13);
+            this.maxDif.TabIndex = 40;
+            this.maxDif.Text = "0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 830);
+            this.Controls.Add(this.maxDif);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.AccMaxLabelMainHalf);
             this.Controls.Add(this.IterLabelMainHalf);
@@ -479,6 +501,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label maxDif;
     }
 }
 
