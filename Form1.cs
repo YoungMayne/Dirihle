@@ -265,9 +265,11 @@ namespace Dirihle
             }
 
 
-            IterLabel.Text   = counter.ToString();
-            AccMaxLabel.Text = accuracy.ToString();
-            maxDif.Text      = max_dif.ToString();
+            IterLabel.Text    = counter.ToString();
+            AccMaxLabel.Text  = accuracy.ToString();
+            maxDif.Text       = max_dif.ToString();
+            DotLabelTest.Text = "Соответствует узлу x = " + Math.Round(Math.Abs(X((uint)max_i)), 3).ToString() +
+                                                 "  y = " + Math.Round(Math.Abs(Y((uint)max_j)), 3).ToString();
 
             Table.Rows.Clear();
             Table.Columns.Clear();

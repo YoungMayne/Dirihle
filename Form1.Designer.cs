@@ -94,6 +94,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.ResidualHalfTextBox = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
+            this.DotLabelTest = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Nbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NmaxBox)).BeginInit();
@@ -151,7 +152,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 398);
+            this.button1.Location = new System.Drawing.Point(16, 417);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(270, 52);
             this.button1.TabIndex = 5;
@@ -422,16 +423,16 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(13, 328);
+            this.label14.Location = new System.Drawing.Point(12, 348);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(114, 13);
+            this.label14.Size = new System.Drawing.Size(246, 13);
             this.label14.TabIndex = 39;
-            this.label14.Text = "Решена с точностью:";
+            this.label14.Text = "Максимальная точного и численного решений:";
             // 
             // maxDif
             // 
             this.maxDif.AutoSize = true;
-            this.maxDif.Location = new System.Drawing.Point(142, 328);
+            this.maxDif.Location = new System.Drawing.Point(259, 348);
             this.maxDif.Name = "maxDif";
             this.maxDif.Size = new System.Drawing.Size(13, 13);
             this.maxDif.TabIndex = 40;
@@ -641,7 +642,7 @@
             // TestTypeTextBox
             // 
             this.TestTypeTextBox.AutoSize = true;
-            this.TestTypeTextBox.Location = new System.Drawing.Point(13, 370);
+            this.TestTypeTextBox.Location = new System.Drawing.Point(13, 393);
             this.TestTypeTextBox.Name = "TestTypeTextBox";
             this.TestTypeTextBox.Size = new System.Drawing.Size(0, 13);
             this.TestTypeTextBox.TabIndex = 51;
@@ -657,7 +658,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(13, 350);
+            this.label21.Location = new System.Drawing.Point(13, 326);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(57, 13);
             this.label21.TabIndex = 53;
@@ -666,7 +667,7 @@
             // ResidualTextBox
             // 
             this.ResidualTextBox.AutoSize = true;
-            this.ResidualTextBox.Location = new System.Drawing.Point(142, 350);
+            this.ResidualTextBox.Location = new System.Drawing.Point(142, 326);
             this.ResidualTextBox.Name = "ResidualTextBox";
             this.ResidualTextBox.Size = new System.Drawing.Size(13, 13);
             this.ResidualTextBox.TabIndex = 54;
@@ -708,11 +709,21 @@
             this.label24.TabIndex = 57;
             this.label24.Text = "Невязка: ";
             // 
+            // DotLabelTest
+            // 
+            this.DotLabelTest.AutoSize = true;
+            this.DotLabelTest.Location = new System.Drawing.Point(13, 371);
+            this.DotLabelTest.Name = "DotLabelTest";
+            this.DotLabelTest.Size = new System.Drawing.Size(106, 13);
+            this.DotLabelTest.TabIndex = 59;
+            this.DotLabelTest.Text = "Соответствует узлу";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 879);
+            this.Controls.Add(this.DotLabelTest);
             this.Controls.Add(this.ResidualHalfTextBox);
             this.Controls.Add(this.label24);
             this.Controls.Add(this.ResidualMainTextBox);
@@ -865,6 +876,7 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label ResidualHalfTextBox;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label DotLabelTest;
     }
 }
 
