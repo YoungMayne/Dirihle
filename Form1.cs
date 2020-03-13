@@ -48,6 +48,11 @@ namespace Dirihle
             YoBox.Maximum = decimal.MaxValue;
             YnBox.Minimum = decimal.MinValue;
             YnBox.Maximum = decimal.MaxValue;
+            
+            Nbox.Minimum = decimal.MinValue;
+            Nbox.Maximum = decimal.MaxValue;
+            Mbox.Minimum = decimal.MinValue;
+            Mbox.Maximum = decimal.MaxValue;
 
             NmaxBox.Maximum = decimal.MaxValue;
 
