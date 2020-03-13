@@ -179,6 +179,15 @@ namespace Dirihle
                 YInterpolationMain();
             }
 
+
+            for (uint i = 0u; i < N + 1; ++i)
+            {
+                for (uint j = 0u; j < M + 1; ++j)
+                {
+                    v[i, j] = VMain(i, j);
+                }
+            }
+
             double current_accuracy;
             double new_v;
             double current = 0.0;
