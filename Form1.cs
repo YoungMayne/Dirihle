@@ -24,6 +24,7 @@ namespace Dirihle
         private double w = 1.0;
         private double acc_max = 0.0000001;
         private double accuracy = 0.0;
+        private bool   use_optimal_omega = true;
 
         private double[,] v;
 
@@ -80,23 +81,35 @@ namespace Dirihle
             TableHalf.ColumnHeadersVisible     = false;
             TableDiffMain.RowHeadersVisible    = false;
             TableDiffMain.ColumnHeadersVisible = false;
+            OptimalOmegaCheckBox.Checked       = true;
 
             label10.Text = "При решении основной задачи \n" +
                            "        с половинным шагом";
         }
 
 
+        // For test task
         private void TopRelaxationMethod()
         {
             v = new double[N + 1, M + 1];
 
-            h = (Xn - Xo) / N;
+            h  = (Xn - Xo) / N;
             h2 = -Math.Pow(N / (Xn - Xo), 2);
-            k = (Yn - Yo) / M;
+            k  = (Yn - Yo) / M;
             k2 = -Math.Pow(M / (Yn - Yo), 2);
             a2 = -2.0 * (h2 + k2);
 
-            if(ZeroApprocsimationCheckBox.Checked)
+            if (use_optimal_omega)
+            {
+                w = 2.0 / (1.0 + Math.Sin(Math.PI * h));
+                OmegaTextBox.Text = w.ToString();
+            }
+            else
+            {
+                w = double.Parse(OmegaTextBox.Text);
+            }
+
+            if (ZeroApprocsimationCheckBox.Checked)
             {
                 ZeroApprocsimation();
             }
@@ -156,15 +169,29 @@ namespace Dirihle
         }
 
 
+        // For main task
         private void TopRelaxationMethodMain()
         {
             v = new double[N + 1, M + 1];
 
-            h = (Xn - Xo) / N;
+            h  = (Xn - Xo) / N;
             h2 = -Math.Pow(N / (Xn - Xo), 2);
-            k = (Yn - Yo) / M;
+            k  = (Yn - Yo) / M;
             k2 = -Math.Pow(M / (Yn - Yo), 2);
             a2 = -2.0 * (h2 + k2);
+
+            if (use_optimal_omega)
+            {
+                double lambda = ((2.0 * k * k / ((h * h) + (k * k))) * Math.Pow(Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))), 2.0)) +
+                                ((2.0 * h * h / ((h * h) + (k * k))) * Math.Pow(Math.Sin(Math.PI * k / (2.0 * (Yn - Yo))), 2.0));
+
+                w = 2.0 / (1.0 + Math.Sqrt(1.0 - lambda * lambda));
+                OmegaTextBox.Text = w.ToString();
+            }
+            else
+            {
+                w = double.Parse(OmegaTextBox.Text);
+            }
 
             if (ZeroApprocsimationCheckBox.Checked)
             {
@@ -230,15 +257,14 @@ namespace Dirihle
         // Test task
         private void button1_Click(object sender, EventArgs e)
         {
-            Xo = (double)XoBox.Value;
-            Xn = (double)XnBox.Value;
-            Yo = (double)YoBox.Value;
-            Yn = (double)YnBox.Value;
-            N  = (uint)Nbox.Value;
-            M  = (uint)Mbox.Value;
-            Nmax = (uint)NmaxBox.Value;
+            Xo      = (double)XoBox.Value;
+            Xn      = (double)XnBox.Value;
+            Yo      = (double)YoBox.Value;
+            Yn      = (double)YnBox.Value;
+            N       = (uint)Nbox.Value;
+            M       = (uint)Mbox.Value;
+            Nmax    = (uint)NmaxBox.Value;
             acc_max = double.Parse(AccuracyBox.Text);
-            w = double.Parse(OmegaTextBox.Text);
 
             TopRelaxationMethod();
 
@@ -333,7 +359,6 @@ namespace Dirihle
             M  = (uint)Mbox.Value;
             Nmax = (uint)NmaxBox.Value;
             acc_max = double.Parse(AccuracyBox.Text);
-            w = double.Parse(OmegaTextBox.Text);
 
             TopRelaxationMethodMain();
 
@@ -704,6 +729,22 @@ namespace Dirihle
             else if (!ZeroApprocsimationCheckBox.Checked && !XInterpolationCheckBox.Checked)
             {
                 YInterpolationCheckBox.Checked = true;
+            }
+        }
+
+        private void OptimalOmegaCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            if(checkBox.Checked)
+            {
+                OmegaTextBox.Enabled = false;
+                use_optimal_omega    = true;
+            }
+            else
+            {
+                OmegaTextBox.Enabled = true;
+                use_optimal_omega    = false;
             }
         }
     }

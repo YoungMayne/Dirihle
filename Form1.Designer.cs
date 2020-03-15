@@ -95,6 +95,7 @@
             this.ResidualHalfTextBox = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.DotLabelTest = new System.Windows.Forms.Label();
+            this.OptimalOmegaCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.Nbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NmaxBox)).BeginInit();
@@ -718,11 +719,22 @@
             this.DotLabelTest.TabIndex = 59;
             this.DotLabelTest.Text = "Соответствует узлу";
             // 
+            // OptimalOmegaCheckBox
+            // 
+            this.OptimalOmegaCheckBox.AutoSize = true;
+            this.OptimalOmegaCheckBox.Location = new System.Drawing.Point(267, 131);
+            this.OptimalOmegaCheckBox.Name = "OptimalOmegaCheckBox";
+            this.OptimalOmegaCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.OptimalOmegaCheckBox.TabIndex = 60;
+            this.OptimalOmegaCheckBox.UseVisualStyleBackColor = true;
+            this.OptimalOmegaCheckBox.CheckedChanged += new System.EventHandler(this.OptimalOmegaCheckBox_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 879);
+            this.Controls.Add(this.OptimalOmegaCheckBox);
             this.Controls.Add(this.DotLabelTest);
             this.Controls.Add(this.ResidualHalfTextBox);
             this.Controls.Add(this.label24);
@@ -877,6 +889,7 @@
         private System.Windows.Forms.Label ResidualHalfTextBox;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label DotLabelTest;
+        private System.Windows.Forms.CheckBox OptimalOmegaCheckBox;
     }
 }
 
