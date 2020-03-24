@@ -49,7 +49,7 @@
             this.AccMaxLabel = new System.Windows.Forms.Label();
             this.Table = new System.Windows.Forms.DataGridView();
             this.DotLabel = new System.Windows.Forms.Label();
-            this.MaxDifLabel = new System.Windows.Forms.Label();
+            this.MaxDifLabelMain = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.AccMaxLabelMain = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.maxDif = new System.Windows.Forms.Label();
+            this.maxDifLabel = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -86,7 +86,6 @@
             this.ZeroApprocsimationCheckBox = new System.Windows.Forms.CheckBox();
             this.XInterpolationCheckBox = new System.Windows.Forms.CheckBox();
             this.YInterpolationCheckBox = new System.Windows.Forms.CheckBox();
-            this.TestTypeTextBox = new System.Windows.Forms.Label();
             this.MainTypeTextBox = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.ResidualTextBox = new System.Windows.Forms.Label();
@@ -153,7 +152,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 417);
+            this.button1.Location = new System.Drawing.Point(16, 402);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(270, 52);
             this.button1.TabIndex = 5;
@@ -292,14 +291,14 @@
             this.DotLabel.TabIndex = 26;
             this.DotLabel.Text = "Соответствует узлу ";
             // 
-            // MaxDifLabel
+            // MaxDifLabelMain
             // 
-            this.MaxDifLabel.AutoSize = true;
-            this.MaxDifLabel.Location = new System.Drawing.Point(247, 750);
-            this.MaxDifLabel.Name = "MaxDifLabel";
-            this.MaxDifLabel.Size = new System.Drawing.Size(13, 13);
-            this.MaxDifLabel.TabIndex = 25;
-            this.MaxDifLabel.Text = "0";
+            this.MaxDifLabelMain.AutoSize = true;
+            this.MaxDifLabelMain.Location = new System.Drawing.Point(247, 750);
+            this.MaxDifLabelMain.Name = "MaxDifLabelMain";
+            this.MaxDifLabelMain.Size = new System.Drawing.Size(13, 13);
+            this.MaxDifLabelMain.TabIndex = 25;
+            this.MaxDifLabelMain.Text = "0";
             // 
             // label8
             // 
@@ -430,14 +429,14 @@
             this.label14.TabIndex = 39;
             this.label14.Text = "Максимальная точного и численного решений:";
             // 
-            // maxDif
+            // maxDifLabel
             // 
-            this.maxDif.AutoSize = true;
-            this.maxDif.Location = new System.Drawing.Point(259, 348);
-            this.maxDif.Name = "maxDif";
-            this.maxDif.Size = new System.Drawing.Size(13, 13);
-            this.maxDif.TabIndex = 40;
-            this.maxDif.Text = "0";
+            this.maxDifLabel.AutoSize = true;
+            this.maxDifLabel.Location = new System.Drawing.Point(259, 348);
+            this.maxDifLabel.Name = "maxDifLabel";
+            this.maxDifLabel.Size = new System.Drawing.Size(13, 13);
+            this.maxDifLabel.TabIndex = 40;
+            this.maxDifLabel.Text = "0";
             // 
             // tabControl1
             // 
@@ -640,14 +639,6 @@
             this.YInterpolationCheckBox.UseVisualStyleBackColor = true;
             this.YInterpolationCheckBox.CheckedChanged += new System.EventHandler(this.YInterpolationCheckBox_CheckedChanged);
             // 
-            // TestTypeTextBox
-            // 
-            this.TestTypeTextBox.AutoSize = true;
-            this.TestTypeTextBox.Location = new System.Drawing.Point(13, 393);
-            this.TestTypeTextBox.Name = "TestTypeTextBox";
-            this.TestTypeTextBox.Size = new System.Drawing.Size(0, 13);
-            this.TestTypeTextBox.TabIndex = 51;
-            // 
             // MainTypeTextBox
             // 
             this.MainTypeTextBox.AutoSize = true;
@@ -743,7 +734,6 @@
             this.Controls.Add(this.ResidualTextBox);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.MainTypeTextBox);
-            this.Controls.Add(this.TestTypeTextBox);
             this.Controls.Add(this.YInterpolationCheckBox);
             this.Controls.Add(this.XInterpolationCheckBox);
             this.Controls.Add(this.ZeroApprocsimationCheckBox);
@@ -754,7 +744,7 @@
             this.Controls.Add(this.OmegaTextBox);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.maxDif);
+            this.Controls.Add(this.maxDifLabel);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.AccMaxLabelMainHalf);
@@ -769,7 +759,7 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.DotLabel);
-            this.Controls.Add(this.MaxDifLabel);
+            this.Controls.Add(this.MaxDifLabelMain);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.AccMaxLabel);
             this.Controls.Add(this.IterLabel);
@@ -843,7 +833,7 @@
         private System.Windows.Forms.Label AccMaxLabel;
         private System.Windows.Forms.DataGridView Table;
         private System.Windows.Forms.Label DotLabel;
-        private System.Windows.Forms.Label MaxDifLabel;
+        private System.Windows.Forms.Label MaxDifLabelMain;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label AccMaxLabelMain;
@@ -858,7 +848,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label maxDif;
+        private System.Windows.Forms.Label maxDifLabel;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage1;
@@ -880,7 +870,6 @@
         private System.Windows.Forms.CheckBox ZeroApprocsimationCheckBox;
         private System.Windows.Forms.CheckBox XInterpolationCheckBox;
         private System.Windows.Forms.CheckBox YInterpolationCheckBox;
-        private System.Windows.Forms.Label TestTypeTextBox;
         private System.Windows.Forms.Label MainTypeTextBox;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label ResidualTextBox;
