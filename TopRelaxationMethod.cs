@@ -8,7 +8,7 @@ namespace Dirihle
 {
     class TopRelaxationMethod : MethodBase
     {
-        private double w = 1;
+        public double w { get; set; }
 
         public TopRelaxationMethod(
             double Xo, 
@@ -92,8 +92,6 @@ namespace Dirihle
         {
             throw new NotImplementedException();
         }
-
-        public ref double GetSpecialParameter() => ref w;
 
         public double CalculateR()
         {

@@ -96,13 +96,13 @@ namespace Dirihle
 
             if (!use_optimal_omega)
             {
-                testTask.GetSpecialParameter() = double.Parse(OmegaTextBox.Text);
+                testTask.w = double.Parse(OmegaTextBox.Text);
             }
 
             testTask.Run(ref iterCount, ref maxAcc);
             testTask.CalculateMaxDifference(out maxDif, out maxX, out maxY);
 
-            ChangeTextBoxValue(OmegaTextBox,    testTask.GetSpecialParameter().ToString());
+            ChangeTextBoxValue(OmegaTextBox,    testTask.w.ToString());
             ChangeLabelValue  (ResidualTextBox, testTask.CalculateR().ToString());
             ChangeLabelValue  (IterLabel,       iterCount.ToString());
             ChangeLabelValue  (AccMaxLabel,     maxAcc.ToString());
@@ -135,7 +135,7 @@ namespace Dirihle
 
             if (!use_optimal_omega)
             {
-                task.GetSpecialParameter() = double.Parse(OmegaTextBox.Text);
+                task.w = double.Parse(OmegaTextBox.Text);
             }
 
             task.Run(ref iterCount, ref maxAcc);
@@ -172,7 +172,7 @@ namespace Dirihle
 
             mainTask.CalculateMaxDifference(mainTask.GetDifference(halfTask.GetData()), out maxDif, out maxX, out maxY);
 
-            ChangeTextBoxValue(OmegaTextBox,        mainTask.GetSpecialParameter().ToString());
+            ChangeTextBoxValue(OmegaTextBox,        mainTask.w.ToString());
             ChangeLabelValue  (MaxDifLabelMain,     Math.Round(maxDif, 7).ToString());
             ChangeLabelValue  (ResidualMainTextBox, mainTask.CalculateR().ToString());
             ChangeLabelValue  (IterLabelMain,       maxIterMain.ToString());
