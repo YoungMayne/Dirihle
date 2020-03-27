@@ -259,7 +259,7 @@
             // IterLabel
             // 
             this.IterLabel.AutoSize = true;
-            this.IterLabel.Location = new System.Drawing.Point(142, 280);
+            this.IterLabel.Location = new System.Drawing.Point(150, 280);
             this.IterLabel.Name = "IterLabel";
             this.IterLabel.Size = new System.Drawing.Size(13, 13);
             this.IterLabel.TabIndex = 18;
@@ -268,7 +268,7 @@
             // AccMaxLabel
             // 
             this.AccMaxLabel.AutoSize = true;
-            this.AccMaxLabel.Location = new System.Drawing.Point(142, 304);
+            this.AccMaxLabel.Location = new System.Drawing.Point(150, 304);
             this.AccMaxLabel.Name = "AccMaxLabel";
             this.AccMaxLabel.Size = new System.Drawing.Size(13, 13);
             this.AccMaxLabel.TabIndex = 19;
@@ -425,14 +425,14 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(12, 348);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(246, 13);
+            this.label14.Size = new System.Drawing.Size(132, 13);
             this.label14.TabIndex = 39;
-            this.label14.Text = "Максимальная точного и численного решений:";
+            this.label14.Text = "Максимальная разница:";
             // 
             // maxDifLabel
             // 
             this.maxDifLabel.AutoSize = true;
-            this.maxDifLabel.Location = new System.Drawing.Point(259, 348);
+            this.maxDifLabel.Location = new System.Drawing.Point(150, 348);
             this.maxDifLabel.Name = "maxDifLabel";
             this.maxDifLabel.Size = new System.Drawing.Size(13, 13);
             this.maxDifLabel.TabIndex = 40;
@@ -659,7 +659,7 @@
             // ResidualTextBox
             // 
             this.ResidualTextBox.AutoSize = true;
-            this.ResidualTextBox.Location = new System.Drawing.Point(142, 326);
+            this.ResidualTextBox.Location = new System.Drawing.Point(150, 326);
             this.ResidualTextBox.Name = "ResidualTextBox";
             this.ResidualTextBox.Size = new System.Drawing.Size(13, 13);
             this.ResidualTextBox.TabIndex = 54;

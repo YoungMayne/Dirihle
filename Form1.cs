@@ -173,7 +173,7 @@ namespace Dirihle
             mainTask.CalculateMaxDifference(mainTask.GetDifference(halfTask.GetData()), out maxDif, out maxX, out maxY);
 
             ChangeTextBoxValue(OmegaTextBox,        mainTask.Ω.ToString());
-            ChangeLabelValue  (MaxDifLabelMain,     Math.Round(maxDif, 7).ToString());
+            ChangeLabelValue  (MaxDifLabelMain,     maxDif.ToString());
             ChangeLabelValue  (ResidualMainTextBox, mainTask.CalculateR().ToString());
             ChangeLabelValue  (IterLabelMain,       maxIterMain.ToString());
             ChangeLabelValue  (AccMaxLabelMain,     maxAccMain.ToString());

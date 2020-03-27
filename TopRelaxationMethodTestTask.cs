@@ -29,10 +29,14 @@ namespace Dirihle
 
         protected override double Function(uint i, uint j)
         {
-            return (4.0 *  Math.Pow(X(i), 2.0) * Math.Exp(-Math.Pow(X(i), 2.0) -
-                           Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0) +
-                   ((4.0 * Math.Pow(Y(j), 2.0) * Math.Exp(-Math.Pow(X(i), 2.0) -
-                           Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0));
+            //return (4.0 *  Math.Pow(X(i), 2.0) * Math.Exp(-Math.Pow(X(i), 2.0) -
+            //               Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0) +
+            //       ((4.0 * Math.Pow(Y(j), 2.0) * Math.Exp(-Math.Pow(X(i), 2.0) -
+            //               Math.Pow(Y(j), 2.0) + 1.0)) - 2.0 * Math.Exp(-Math.Pow(X(i), 2.0) - Math.Pow(Y(j), 2.0) + 1.0));
+
+            double xx = X(i) * X(i);
+            double yy = Y(j) * Y(j);
+            return Math.Exp(-xx - yy + 1.0) * (4.0 * xx - 2.0 + 4.0 * yy - 2.0);
         }
 
         private double ExactFunction(uint i, uint j)

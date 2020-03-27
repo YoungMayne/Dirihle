@@ -21,14 +21,14 @@ namespace Dirihle
             base(Xo, Xn, Yo, Yn, N, M, approximationType) 
         {
             double lambdaMin = 
-                2 * k * k / (h * h + k * k) * 
-                Math.Sin(Math.PI * h / (2 * (Xn - Xo))) * 
-                Math.Sin(Math.PI * h / (2 * (Xn - Xo))) + 
-                2 * h * h / (h * h + k * k) * 
-                Math.Sin(Math.PI * k / (2 * (Yn - Yo))) * 
-                Math.Sin(Math.PI * k / (2 * (Yn - Yo)));
+                2.0 * k * k / (h * h + k * k) * 
+                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) * 
+                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) + 
+                2.0 * h * h / (h * h + k * k) * 
+                Math.Sin(Math.PI * k / (2.0 * (Yn - Yo))) * 
+                Math.Sin(Math.PI * k / (2.0 * (Yn - Yo)));
 
-            Ω = 2 / (1 + Math.Sqrt(lambdaMin * (2 - lambdaMin)));
+            Ω = 2.0 / (1.0 + Math.Sqrt(lambdaMin * (2.0 - lambdaMin)));
         }
 
         public override void Run(ref uint maxIter, ref double maxAccuracy)
@@ -38,6 +38,7 @@ namespace Dirihle
             double h2       = -Math.Pow(N / (Xn - Xo), 2);
             double k2       = -Math.Pow(M / (Yn - Yo), 2);
             double a2       = -2.0 * (h2 + k2);
+            double a2Opp    = 1.0 / a2;
             uint counter    = 0u;
 
             double current_accuracy;
@@ -53,11 +54,11 @@ namespace Dirihle
                     {
                         current = data[i, j];
 
-                        new_v = 0.0;
-                        new_v += -Ω * (h2 * (V(i + 1, j) + V(i - 1, j)));
-                        new_v += -Ω * (k2 * (V(i, j + 1) + V(i, j - 1)));
-                        new_v += (1.0 - Ω) * a2 * V(i, j) + Ω * -Function(i, j);
-                        new_v /= a2;
+                        new_v   = 0.0;
+                        new_v  += -Ω * (k2 * (data[i + 1u, j] + data[i - 1u, j]) +
+                                        h2 * (data[i, j + 1u] + data[i, j - 1u]));
+                        new_v  += (1.0 - Ω) * a2 * data[i, j] + Ω * -Function(i, j);
+                        new_v  *= a2Opp;
 
                         current_accuracy = Math.Abs(current - new_v);
 
