@@ -44,9 +44,9 @@ namespace Dirihle
                                            out double maxX, 
                                            out double maxY)
         {
-            maxDif = 0.0;
-            maxX   = 0;
-            maxY   = 0;
+            uint maxI = 0u;
+            uint maxJ = 0u;
+            maxDif    = 0.0;
 
             for (uint i = 0; i < N + 1; ++i)
             {
@@ -57,11 +57,14 @@ namespace Dirihle
                     if (cur_dif > maxDif)
                     {
                         maxDif = cur_dif;
-                        maxX   = X(i);
-                        maxY   = Y(j);
+                        maxI   = i;
+                        maxJ   = j;
                     }
                 }
             }
+
+            maxX = X(maxI);
+            maxY = Y(maxJ);
         }
 
         public double[,] GetExact()

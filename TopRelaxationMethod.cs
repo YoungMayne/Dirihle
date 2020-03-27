@@ -8,7 +8,7 @@ namespace Dirihle
 {
     class TopRelaxationMethod : MethodBase
     {
-        public double w { get; set; }
+        public double Ω { get; set; }
 
         public TopRelaxationMethod(
             double Xo, 
@@ -20,7 +20,15 @@ namespace Dirihle
             ApproximationType approximationType) : 
             base(Xo, Xn, Yo, Yn, N, M, approximationType) 
         {
-            w = 2.0 / (1 + Math.Sin(Math.PI * h));
+            double lambdaMin = 
+                2 * k * k / (h * h + k * k) * 
+                Math.Sin(Math.PI * h / (2 * (Xn - Xo))) * 
+                Math.Sin(Math.PI * h / (2 * (Xn - Xo))) + 
+                2 * h * h / (h * h + k * k) * 
+                Math.Sin(Math.PI * k / (2 * (Yn - Yo))) * 
+                Math.Sin(Math.PI * k / (2 * (Yn - Yo)));
+
+            Ω = 2 / (1 + Math.Sqrt(lambdaMin * (2 - lambdaMin)));
         }
 
         public override void Run(ref uint maxIter, ref double maxAccuracy)
@@ -46,9 +54,9 @@ namespace Dirihle
                         current = data[i, j];
 
                         new_v = 0.0;
-                        new_v += -w * (h2 * (V(i + 1, j) + V(i - 1, j)));
-                        new_v += -w * (k2 * (V(i, j + 1) + V(i, j - 1)));
-                        new_v += (1.0 - w) * a2 * V(i, j) + w * -Function(i, j);
+                        new_v += -Ω * (h2 * (V(i + 1, j) + V(i - 1, j)));
+                        new_v += -Ω * (k2 * (V(i, j + 1) + V(i, j - 1)));
+                        new_v += (1.0 - Ω) * a2 * V(i, j) + Ω * -Function(i, j);
                         new_v /= a2;
 
                         current_accuracy = Math.Abs(current - new_v);
