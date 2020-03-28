@@ -33,12 +33,14 @@ namespace Dirihle
 
         public override void Run(ref uint maxIter, ref double maxAccuracy)
         {
-            double current  = 0.0;
             double accuracy = 0.0;
             double h2       = -Math.Pow(N / (Xn - Xo), 2);
             double k2       = -Math.Pow(M / (Yn - Yo), 2);
             double a2       = -2.0 * (h2 + k2);
             double a2Opp    = 1.0 / a2;
+            double Ωk2      = Ω * k2;
+            double Ωh2      = Ω * h2;
+            double Ωa2      = (1.0 - Ω) * a2;
             uint counter    = 0u;
 
             double current_accuracy;
@@ -52,13 +54,12 @@ namespace Dirihle
                 {
                     for (uint i = 1u; i < N; ++i)
                     {
-                        current = data[i, j];
+                        double current = data[i, j];
 
-                        new_v   = 0.0;
-                        new_v  += -Ω * (k2 * (data[i + 1u, j] + data[i - 1u, j]) +
-                                        h2 * (data[i, j + 1u] + data[i, j - 1u]));
-                        new_v  += (1.0 - Ω) * a2 * data[i, j] + Ω * -Function(i, j);
-                        new_v  *= a2Opp;
+                        new_v  = -Ωk2 * (data[i + 1u, j] + data[i - 1u, j]);                                 
+                        new_v += -Ωh2 * (data[i, j + 1u] + data[i, j - 1u]);
+                        new_v +=  Ωa2 *  data[i, j] - Ω * function[i, j];
+                        new_v *=  a2Opp;
 
                         current_accuracy = Math.Abs(current - new_v);
 

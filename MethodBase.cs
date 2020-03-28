@@ -26,6 +26,7 @@ namespace Dirihle
         protected double k;
 
         protected double[,] data;
+        protected double[,] function;
 
 
         public MethodBase(
@@ -37,15 +38,16 @@ namespace Dirihle
             uint M, 
             ApproximationType approximationType)
         {
-            this.data = new double[N + 1, M + 1];
-            this.Xo   = Xo;
-            this.Yo   = Yo;
-            this.Xn   = Xn;
-            this.Yn   = Yn;
-            this.N    = N;
-            this.M    = M;
-            this.h    = (this.Xn - this.Xo) / N;
-            this.k    = (this.Yn - this.Yo) / M;
+            this.data     = new double[N + 1u, M + 1u];
+            this.function = new double[N + 1u, M + 1u];
+            this.Xo       = Xo;
+            this.Yo       = Yo;
+            this.Xn       = Xn;
+            this.Yn       = Yn;
+            this.N        = N;
+            this.M        = M;
+            this.h        = (this.Xn - this.Xo) / N;
+            this.k        = (this.Yn - this.Yo) / M;
 
             Init(approximationType);
         }
@@ -98,6 +100,14 @@ namespace Dirihle
                 for (uint j = 0u; j < M + 1; ++j)
                 {
                     data[i, j] = V(i, j);
+                }
+            }
+
+            for(uint i = 1u; i < N; ++i)
+            {
+                for(uint j = 1u; j < M; ++j)
+                {
+                    function[i, j] = Function(i, j);
                 }
             }
         }
