@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Dirihle
 {
-    class TopRelaxationMethodTestTask : TopRelaxationMethod
+    class SimpleIterationMethodTestTask : SimpleIterationMethod
     {
 
-        public TopRelaxationMethodTestTask(
-            double Xo, 
-            double Xn, 
-            double Yo, 
-            double Yn, 
-            uint N, 
-            uint M, 
-            ApproximationType approximationType) : 
+        public SimpleIterationMethodTestTask(
+            double Xo,
+            double Xn,
+            double Yo,
+            double Yn,
+            uint N,
+            uint M,
+            ApproximationType approximationType) :
             base(Xo, Xn, Yo, Yn, N, M, approximationType)
         {
         }
@@ -24,8 +24,8 @@ namespace Dirihle
 
         protected override double mu1(double y) => Math.Exp(1.0 - Math.Pow(Xo, 2) - Math.Pow(y, 2));
         protected override double mu2(double y) => Math.Exp(1.0 - Math.Pow(Xn, 2) - Math.Pow(y, 2));
-        protected override double mu3(double x) => Math.Exp(1.0 - Math.Pow(x, 2)  - Math.Pow(Yo, 2));
-        protected override double mu4(double x) => Math.Exp(1.0 - Math.Pow(x, 2)  - Math.Pow(Yn, 2));
+        protected override double mu3(double x) => Math.Exp(1.0 - Math.Pow(x, 2) - Math.Pow(Yo, 2));
+        protected override double mu4(double x) => Math.Exp(1.0 - Math.Pow(x, 2) - Math.Pow(Yn, 2));
 
         protected override double Function(uint i, uint j)
         {
@@ -40,12 +40,12 @@ namespace Dirihle
         }
 
         public void CalculateMaxDifference(out double maxDif,
-                                           out double maxX, 
+                                           out double maxX,
                                            out double maxY)
         {
             uint maxI = 0u;
             uint maxJ = 0u;
-            maxDif    = 0.0;
+            maxDif = 0.0;
 
             for (uint i = 0; i < N + 1; ++i)
             {
@@ -56,8 +56,8 @@ namespace Dirihle
                     if (cur_dif > maxDif)
                     {
                         maxDif = cur_dif;
-                        maxI   = i;
-                        maxJ   = j;
+                        maxI = i;
+                        maxJ = j;
                     }
                 }
             }
@@ -70,9 +70,9 @@ namespace Dirihle
         {
             double[,] exact = new double[N + 1u, M + 1u];
 
-            for(uint i = 0u; i < N + 1u; ++i)
+            for (uint i = 0u; i < N + 1u; ++i)
             {
-                for(uint j = 0u; j < M + 1u; ++j)
+                for (uint j = 0u; j < M + 1u; ++j)
                 {
                     exact[i, j] = ExactFunction(i, j);
                 }

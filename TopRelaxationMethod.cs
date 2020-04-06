@@ -21,12 +21,12 @@ namespace Dirihle
             base(Xo, Xn, Yo, Yn, N, M, approximationType) 
         {
             double lambdaMin = 
-                2.0 * k * k / (h * h + k * k) * 
+                (2.0 * k * k / (h * h + (k * k)) * 
                 Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) * 
-                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) + 
-                2.0 * h * h / (h * h + k * k) * 
+                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo)))) + 
+                (2.0 * h * h / ((h * h) + (k * k)) * 
                 Math.Sin(Math.PI * k / (2.0 * (Yn - Yo))) * 
-                Math.Sin(Math.PI * k / (2.0 * (Yn - Yo)));
+                Math.Sin(Math.PI * k / (2.0 * (Yn - Yo))));
 
             Ω = 2.0 / (1.0 + Math.Sqrt(lambdaMin * (2.0 - lambdaMin)));
         }
@@ -58,7 +58,7 @@ namespace Dirihle
 
                         new_v  = -Ωk2 * (data[i + 1u, j] + data[i - 1u, j]);                                 
                         new_v += -Ωh2 * (data[i, j + 1u] + data[i, j - 1u]);
-                        new_v +=  Ωa2 *  data[i, j] - Ω * function[i, j];
+                        new_v +=  Ωa2 *  data[i, j] + Ω * -function[i, j];
                         new_v *=  a2Opp;
 
                         current_accuracy = Math.Abs(current - new_v);
@@ -101,30 +101,6 @@ namespace Dirihle
         protected override double mu4(double x)
         {
             throw new NotImplementedException();
-        }
-
-        public double CalculateR()
-        {
-            double R  = 0.0;
-            double h2 = -Math.Pow(N / (Xn - Xo), 2);
-            double k2 = -Math.Pow(M / (Yn - Yo), 2);
-            double a2 = -2.0 * (h2 + k2);
-
-            for (uint j = 1u; j < M; ++j)
-            {
-                for (uint i = 1u; i < N; ++i)
-                {
-                    R += Math.Pow(
-                         a2 * data[i, j] +
-                         h2 * (data[i - 1, j] +
-                         data[i + 1, j]) +
-                         k2 * (data[i, j - 1] +
-                         data[i, j + 1]) +
-                         Function(i, j), 2.0);
-                }
-            }
-
-            return Math.Sqrt(R);
         }
     }
 }

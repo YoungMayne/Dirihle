@@ -68,6 +68,29 @@ namespace Dirihle
         public    uint      GetN()     => N;
         public    uint      GetM()     => M;
 
+        public double CalculateR()
+        {
+            double R = 0.0;
+            double h2 = -Math.Pow(N / (Xn - Xo), 2);
+            double k2 = -Math.Pow(M / (Yn - Yo), 2);
+            double a2 = -2.0 * (h2 + k2);
+
+            for (uint j = 1u; j < M; ++j)
+            {
+                for (uint i = 1u; i < N; ++i)
+                {
+                    R += Math.Pow(
+                         a2 * data[i, j] +
+                         h2 * (data[i - 1, j] +
+                         data[i + 1, j]) +
+                         k2 * (data[i, j - 1] +
+                         data[i, j + 1]) +
+                         Function(i, j), 2.0);
+                }
+            }
+
+            return Math.Sqrt(R);
+        }
 
         protected double V(uint i, uint j)
         {
@@ -164,5 +187,6 @@ namespace Dirihle
                 }
             }
         }
+
     }
 }

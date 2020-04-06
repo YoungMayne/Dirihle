@@ -95,6 +95,7 @@
             this.label24 = new System.Windows.Forms.Label();
             this.DotLabelTest = new System.Windows.Forms.Label();
             this.OptimalOmegaCheckBox = new System.Windows.Forms.CheckBox();
+            this.MethodComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.Nbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NmaxBox)).BeginInit();
@@ -121,7 +122,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 48);
+            this.label1.Location = new System.Drawing.Point(12, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(122, 13);
             this.label1.TabIndex = 1;
@@ -130,7 +131,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 74);
+            this.label2.Location = new System.Drawing.Point(12, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 13);
             this.label2.TabIndex = 2;
@@ -138,21 +139,21 @@
             // 
             // Nbox
             // 
-            this.Nbox.Location = new System.Drawing.Point(140, 46);
+            this.Nbox.Location = new System.Drawing.Point(140, 59);
             this.Nbox.Name = "Nbox";
             this.Nbox.Size = new System.Drawing.Size(120, 20);
             this.Nbox.TabIndex = 3;
             // 
             // Mbox
             // 
-            this.Mbox.Location = new System.Drawing.Point(140, 72);
+            this.Mbox.Location = new System.Drawing.Point(140, 85);
             this.Mbox.Name = "Mbox";
             this.Mbox.Size = new System.Drawing.Size(120, 20);
             this.Mbox.TabIndex = 4;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 402);
+            this.button1.Location = new System.Drawing.Point(16, 415);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(270, 52);
             this.button1.TabIndex = 5;
@@ -163,7 +164,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 22);
+            this.label3.Location = new System.Drawing.Point(12, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(106, 13);
             this.label3.TabIndex = 6;
@@ -171,7 +172,7 @@
             // 
             // NmaxBox
             // 
-            this.NmaxBox.Location = new System.Drawing.Point(140, 20);
+            this.NmaxBox.Location = new System.Drawing.Point(140, 33);
             this.NmaxBox.Name = "NmaxBox";
             this.NmaxBox.Size = new System.Drawing.Size(120, 20);
             this.NmaxBox.TabIndex = 7;
@@ -179,7 +180,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 101);
+            this.label4.Location = new System.Drawing.Point(13, 114);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 8;
@@ -187,7 +188,7 @@
             // 
             // AccuracyBox
             // 
-            this.AccuracyBox.Location = new System.Drawing.Point(140, 98);
+            this.AccuracyBox.Location = new System.Drawing.Point(140, 111);
             this.AccuracyBox.Name = "AccuracyBox";
             this.AccuracyBox.Size = new System.Drawing.Size(120, 20);
             this.AccuracyBox.TabIndex = 9;
@@ -241,7 +242,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 280);
+            this.label7.Location = new System.Drawing.Point(13, 293);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(116, 13);
             this.label7.TabIndex = 16;
@@ -250,7 +251,7 @@
             // dsafgasdg
             // 
             this.dsafgasdg.AutoSize = true;
-            this.dsafgasdg.Location = new System.Drawing.Point(13, 304);
+            this.dsafgasdg.Location = new System.Drawing.Point(11, 317);
             this.dsafgasdg.Name = "dsafgasdg";
             this.dsafgasdg.Size = new System.Drawing.Size(123, 13);
             this.dsafgasdg.TabIndex = 17;
@@ -259,7 +260,7 @@
             // IterLabel
             // 
             this.IterLabel.AutoSize = true;
-            this.IterLabel.Location = new System.Drawing.Point(150, 280);
+            this.IterLabel.Location = new System.Drawing.Point(150, 293);
             this.IterLabel.Name = "IterLabel";
             this.IterLabel.Size = new System.Drawing.Size(13, 13);
             this.IterLabel.TabIndex = 18;
@@ -268,7 +269,7 @@
             // AccMaxLabel
             // 
             this.AccMaxLabel.AutoSize = true;
-            this.AccMaxLabel.Location = new System.Drawing.Point(150, 304);
+            this.AccMaxLabel.Location = new System.Drawing.Point(150, 317);
             this.AccMaxLabel.Name = "AccMaxLabel";
             this.AccMaxLabel.Size = new System.Drawing.Size(13, 13);
             this.AccMaxLabel.TabIndex = 19;
@@ -414,7 +415,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(49, 257);
+            this.label13.Location = new System.Drawing.Point(49, 270);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(188, 13);
             this.label13.TabIndex = 38;
@@ -423,7 +424,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 348);
+            this.label14.Location = new System.Drawing.Point(12, 361);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(132, 13);
             this.label14.TabIndex = 39;
@@ -432,7 +433,7 @@
             // maxDifLabel
             // 
             this.maxDifLabel.AutoSize = true;
-            this.maxDifLabel.Location = new System.Drawing.Point(150, 348);
+            this.maxDifLabel.Location = new System.Drawing.Point(150, 361);
             this.maxDifLabel.Name = "maxDifLabel";
             this.maxDifLabel.Size = new System.Drawing.Size(13, 13);
             this.maxDifLabel.TabIndex = 40;
@@ -501,7 +502,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(12, 128);
+            this.label17.Location = new System.Drawing.Point(12, 141);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(104, 13);
             this.label17.TabIndex = 42;
@@ -509,7 +510,7 @@
             // 
             // OmegaTextBox
             // 
-            this.OmegaTextBox.Location = new System.Drawing.Point(140, 128);
+            this.OmegaTextBox.Location = new System.Drawing.Point(140, 141);
             this.OmegaTextBox.Name = "OmegaTextBox";
             this.OmegaTextBox.Size = new System.Drawing.Size(120, 20);
             this.OmegaTextBox.TabIndex = 43;
@@ -585,7 +586,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(12, 158);
+            this.label18.Location = new System.Drawing.Point(12, 171);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(121, 13);
             this.label18.TabIndex = 45;
@@ -594,7 +595,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(13, 190);
+            this.label19.Location = new System.Drawing.Point(13, 203);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(103, 13);
             this.label19.TabIndex = 46;
@@ -603,7 +604,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(13, 220);
+            this.label20.Location = new System.Drawing.Point(13, 233);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(103, 13);
             this.label20.TabIndex = 47;
@@ -612,7 +613,7 @@
             // ZeroApprocsimationCheckBox
             // 
             this.ZeroApprocsimationCheckBox.AutoSize = true;
-            this.ZeroApprocsimationCheckBox.Location = new System.Drawing.Point(145, 158);
+            this.ZeroApprocsimationCheckBox.Location = new System.Drawing.Point(145, 171);
             this.ZeroApprocsimationCheckBox.Name = "ZeroApprocsimationCheckBox";
             this.ZeroApprocsimationCheckBox.Size = new System.Drawing.Size(15, 14);
             this.ZeroApprocsimationCheckBox.TabIndex = 48;
@@ -622,7 +623,7 @@
             // XInterpolationCheckBox
             // 
             this.XInterpolationCheckBox.AutoSize = true;
-            this.XInterpolationCheckBox.Location = new System.Drawing.Point(145, 190);
+            this.XInterpolationCheckBox.Location = new System.Drawing.Point(145, 203);
             this.XInterpolationCheckBox.Name = "XInterpolationCheckBox";
             this.XInterpolationCheckBox.Size = new System.Drawing.Size(15, 14);
             this.XInterpolationCheckBox.TabIndex = 49;
@@ -632,7 +633,7 @@
             // YInterpolationCheckBox
             // 
             this.YInterpolationCheckBox.AutoSize = true;
-            this.YInterpolationCheckBox.Location = new System.Drawing.Point(145, 220);
+            this.YInterpolationCheckBox.Location = new System.Drawing.Point(145, 233);
             this.YInterpolationCheckBox.Name = "YInterpolationCheckBox";
             this.YInterpolationCheckBox.Size = new System.Drawing.Size(15, 14);
             this.YInterpolationCheckBox.TabIndex = 50;
@@ -650,7 +651,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(13, 326);
+            this.label21.Location = new System.Drawing.Point(12, 339);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(57, 13);
             this.label21.TabIndex = 53;
@@ -659,7 +660,7 @@
             // ResidualTextBox
             // 
             this.ResidualTextBox.AutoSize = true;
-            this.ResidualTextBox.Location = new System.Drawing.Point(150, 326);
+            this.ResidualTextBox.Location = new System.Drawing.Point(150, 339);
             this.ResidualTextBox.Name = "ResidualTextBox";
             this.ResidualTextBox.Size = new System.Drawing.Size(13, 13);
             this.ResidualTextBox.TabIndex = 54;
@@ -704,7 +705,7 @@
             // DotLabelTest
             // 
             this.DotLabelTest.AutoSize = true;
-            this.DotLabelTest.Location = new System.Drawing.Point(13, 371);
+            this.DotLabelTest.Location = new System.Drawing.Point(13, 384);
             this.DotLabelTest.Name = "DotLabelTest";
             this.DotLabelTest.Size = new System.Drawing.Size(106, 13);
             this.DotLabelTest.TabIndex = 59;
@@ -713,18 +714,28 @@
             // OptimalOmegaCheckBox
             // 
             this.OptimalOmegaCheckBox.AutoSize = true;
-            this.OptimalOmegaCheckBox.Location = new System.Drawing.Point(267, 131);
+            this.OptimalOmegaCheckBox.Location = new System.Drawing.Point(267, 144);
             this.OptimalOmegaCheckBox.Name = "OptimalOmegaCheckBox";
             this.OptimalOmegaCheckBox.Size = new System.Drawing.Size(15, 14);
             this.OptimalOmegaCheckBox.TabIndex = 60;
             this.OptimalOmegaCheckBox.UseVisualStyleBackColor = true;
             this.OptimalOmegaCheckBox.CheckedChanged += new System.EventHandler(this.OptimalOmegaCheckBox_CheckedChanged);
             // 
+            // MethodComboBox
+            // 
+            this.MethodComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MethodComboBox.FormattingEnabled = true;
+            this.MethodComboBox.Location = new System.Drawing.Point(12, 6);
+            this.MethodComboBox.Name = "MethodComboBox";
+            this.MethodComboBox.Size = new System.Drawing.Size(248, 21);
+            this.MethodComboBox.TabIndex = 61;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 879);
+            this.Controls.Add(this.MethodComboBox);
             this.Controls.Add(this.OptimalOmegaCheckBox);
             this.Controls.Add(this.DotLabelTest);
             this.Controls.Add(this.ResidualHalfTextBox);
@@ -879,6 +890,7 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label DotLabelTest;
         private System.Windows.Forms.CheckBox OptimalOmegaCheckBox;
+        private System.Windows.Forms.ComboBox MethodComboBox;
     }
 }
 

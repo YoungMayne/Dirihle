@@ -44,7 +44,7 @@ namespace Dirihle
                     table[(int)j, (int)i].Value = values[jj, ii];
                 }
             }
-        }
+       }
 
         private void Init(DataGridView table)
         {
