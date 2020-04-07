@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Dirihle
+namespace NumericalMethods
 {
     public partial class Form1 : Form
     {
@@ -30,6 +30,21 @@ namespace Dirihle
         private uint Nmax;
         private uint N;
         private uint M;
+
+        private double mu1Test(double y) => Math.Exp(1.0 - Math.Pow(Xo, 2) - Math.Pow(y, 2));
+        private double mu2Test(double y) => Math.Exp(1.0 - Math.Pow(Xn, 2) - Math.Pow(y, 2));
+        private double mu3Test(double x) => Math.Exp(1.0 - Math.Pow(x, 2)  - Math.Pow(Yo, 2));
+        private double mu4Test(double x) => Math.Exp(1.0 - Math.Pow(x, 2)  - Math.Pow(Yn, 2));
+        private double FunctionTest(double x, double y)  =>
+            Math.Exp(-(x * x) - (y * y) + 1.0) * (4.0 * x * x - 2.0 + 4.0 * y * y - 2.0);
+        private double ExactFunction(double x, double y) => 
+            Math.Exp(1.0 - (x * x) - (y * y));
+
+        private double mu1Main(double y) =>  1.0 - Math.Pow(y, 2.0);
+        private double mu2Main(double y) => (1.0 - Math.Pow(y, 2.0)) * Math.Exp(y);
+        private double mu3Main(double x) =>  1.0 - Math.Pow(x, 2.0);
+        private double mu4Main(double x) =>  1.0 - Math.Pow(x, 2.0);
+        private double FunctionMain(double x, double y) => -Math.Abs(x * x - y * y);
 
 
         public Form1()
@@ -86,351 +101,183 @@ namespace Dirihle
         }
 
 
-        // Test task
-        private void RunTopRelaxationMethodTestTask()
-        {
-            ChangeButtonVisibility(button1, false);
-
-            double maxDif    = 0.0;
-            double maxX      = 0.0;
-            double maxY      = 0.0;
-            double maxAcc    = acc_max;
-            uint   iterCount = Nmax;
-
-            TopRelaxationMethodTestTask testTask = new
-                TopRelaxationMethodTestTask(Xo, Xn, Yo, Yn, N, M, approximationType);
-
-            if (!use_optimal_parameter)
-            {
-                testTask.Ω = double.Parse(OmegaTextBox.Text);
-            }
-
-            testTask.Run(ref iterCount, ref maxAcc);
-            testTask.CalculateMaxDifference(out maxDif, out maxX, out maxY);
-
-            ChangeTextBoxValue(OmegaTextBox,    testTask.Ω.ToString());
-            ChangeLabelValue  (ResidualTextBox, testTask.CalculateR().ToString());
-            ChangeLabelValue  (IterLabel,       iterCount.ToString());
-            ChangeLabelValue  (AccMaxLabel,     maxAcc.ToString());
-            ChangeLabelValue  (maxDifLabel,     maxDif.ToString());
-            ChangeLabelValue  (DotLabelTest,    "Соответствует узлу x = " + Math.Round(Math.Abs(maxX), 3).ToString() +
-                                                                 "  y = " + Math.Round(Math.Abs(maxY), 3).ToString());
-
-            tableCreator.Init(N + 1u, M + 1u);
-
-            ChangeTableValues(Table,         testTask.GetData());
-            ChangeTableValues(TableExact,    testTask.GetExact());
-            ChangeTableValues(TableDiffTest, testTask.GetDifference(testTask.GetExact()));
-
-            ChangeButtonVisibility(button1, true);
-        }
-
-
-        private void RunSimpleIterationMethodTestTask()
+        private void RunTestTask<Method>() where Method : MethodBase, new()
         {
             ChangeButtonVisibility(button1, false);
 
             double maxDif  = 0.0;
-            double maxX    = 0.0;
-            double maxY    = 0.0;
             double maxAcc  = acc_max;
             uint iterCount = Nmax;
+            uint maxI      = 0u;
+            uint maxJ      = 0u;
 
-            SimpleIterationMethodTestTask testTask = new
-                SimpleIterationMethodTestTask(Xo, Xn, Yo, Yn, N, M, approximationType);
+            Method testTask = new Method();
+
+            testTask.Init(Xo, Xn, Yo, Yn, N, M, approximationType);
+            testTask.SetFunctions(mu1Test, mu2Test, mu3Test, mu4Test, FunctionTest, ExactFunction);
 
             if (!use_optimal_parameter)
             {
-                testTask.τ = double.Parse(OmegaTextBox.Text);
+                testTask.SetSpecialParameter(double.Parse(OmegaTextBox.Text));
             }
 
             testTask.Run(ref iterCount, ref maxAcc);
-            testTask.CalculateMaxDifference(out maxDif, out maxX, out maxY);
+            FindMax(
+                CalculateDifferenceTableForTestTask(
+                    testTask.GetData(), testTask.GetExactTable(), testTask.GetN(), testTask.GetM()), 
+                out maxDif, out maxI, out maxJ);
 
-            ChangeTextBoxValue(OmegaTextBox,    testTask.τ.ToString());
-            ChangeLabelValue  (ResidualTextBox, testTask.CalculateR().ToString());
-            ChangeLabelValue  (IterLabel,       iterCount.ToString());
-            ChangeLabelValue  (AccMaxLabel,     maxAcc.ToString());
-            ChangeLabelValue  (maxDifLabel,     maxDif.ToString());
-            ChangeLabelValue  (DotLabelTest,    "Соответствует узлу x = " + Math.Round(Math.Abs(maxX), 3).ToString() +
-                                                                 "  y = " + Math.Round(Math.Abs(maxY), 3).ToString());
+            ChangeTextBoxValue(OmegaTextBox,  testTask.GetSpecialParameter().ToString());
+            ChangeLabelValue(ResidualTextBox, testTask.CalculateResidual().ToString());
+            ChangeLabelValue(IterLabel,       iterCount.ToString());
+            ChangeLabelValue(AccMaxLabel,     maxAcc.ToString());
+            ChangeLabelValue(maxDifLabel,     maxDif.ToString());
+            ChangeLabelValue(DotLabelTest,    "Соответствует узлу i = " + maxI.ToString() +
+                                                               "  j = " + maxJ.ToString());
 
             tableCreator.Init(N + 1u, M + 1u);
 
             ChangeTableValues(Table,         testTask.GetData());
-            ChangeTableValues(TableExact,    testTask.GetExact());
-            ChangeTableValues(TableDiffTest, testTask.GetDifference(testTask.GetExact()));
+            ChangeTableValues(TableExact,    testTask.GetExactTable());
+            ChangeTableValues(TableDiffTest, 
+                CalculateDifferenceTableForTestTask(testTask.GetData(), testTask.GetExactTable(), N, M));
 
             ChangeButtonVisibility(button1, true);
         }
 
 
-        private void RunChebyshevSimpleIterationMethodTestTask()
+        private void RunMainTask<Method>() where Method : MethodBase, new()
         {
-            ChangeButtonVisibility(button1, false);
+            ChangeButtonVisibility(button2, false);
 
-            double maxDif = 0.0;
-            double maxX = 0.0;
-            double maxY = 0.0;
-            double maxAcc = acc_max;
-            uint iterCount = Nmax;
+            double maxDif     = 0.0;
+            double maxAccMain = 0.0;
+            double maxAccHalf = 0.0;
+            uint maxIterMain  = 0u;
+            uint maxIterHalf  = 0u;
+            uint maxI         = 0u;
+            uint maxJ         = 0u;
 
-            ChebyshevSimpleIterationMethodTestTask testTask = new
-                ChebyshevSimpleIterationMethodTestTask(Xo, Xn, Yo, Yn, N, M, approximationType);
 
-            if (!use_optimal_parameter)
-            {
-                testTask.k = (uint)double.Parse(OmegaTextBox.Text);
-            }
+            Method mainTask = null;
+            Method halfTask = null;
 
-            testTask.Run(ref iterCount, ref maxAcc);
-            testTask.CalculateMaxDifference(out maxDif, out maxX, out maxY);
+            Thread stepTaskThread = new Thread(() =>
+                RunMethod<Method>(out mainTask, out maxAccMain, out maxIterMain, N, M));
 
-            ChangeTextBoxValue(OmegaTextBox, testTask.k.ToString());
-            ChangeLabelValue(ResidualTextBox, testTask.CalculateR().ToString());
-            ChangeLabelValue(IterLabel, iterCount.ToString());
-            ChangeLabelValue(AccMaxLabel, maxAcc.ToString());
-            ChangeLabelValue(maxDifLabel, maxDif.ToString());
-            ChangeLabelValue(DotLabelTest, "Соответствует узлу x = " + Math.Round(Math.Abs(maxX), 3).ToString() +
-                                                                 "  y = " + Math.Round(Math.Abs(maxY), 3).ToString());
+            Thread halfTaskThread = new Thread(() =>
+                RunMethod<Method>(out halfTask, out maxAccHalf, out maxIterHalf, N * 2u, M * 2u));
+
+            stepTaskThread.Start();
+            halfTaskThread.Start();
+            stepTaskThread.Join();
+            halfTaskThread.Join();
+
+
+            FindMax(CalculateDifferenceTableForMainTask(mainTask.GetData(), halfTask.GetData(), N, M), out maxDif, out maxI, out maxJ);
+
+            ChangeTextBoxValue(OmegaTextBox, mainTask.GetSpecialParameter().ToString());
+            ChangeLabelValue(MaxDifLabelMain, maxDif.ToString());
+            ChangeLabelValue(ResidualMainTextBox, mainTask.CalculateResidual().ToString());
+            ChangeLabelValue(IterLabelMain, maxIterMain.ToString());
+            ChangeLabelValue(AccMaxLabelMain, maxAccMain.ToString());
+            ChangeLabelValue(ResidualHalfTextBox, halfTask.CalculateResidual().ToString());
+            ChangeLabelValue(IterLabelMainHalf, maxIterHalf.ToString());
+            ChangeLabelValue(AccMaxLabelMainHalf, maxAccHalf.ToString());
+            ChangeLabelValue(DotLabel, "Соответствует узлу i = " + maxI.ToString() + 
+                                                        "  j = " + maxJ.ToString());
+
+            tableCreator.Init(N * 2 + 1u, M * 2 + 1u);
+            ChangeTableValues(TableHalf, halfTask.GetData());
 
             tableCreator.Init(N + 1u, M + 1u);
+            ChangeTableValues(TableMain, mainTask.GetData());
+            ChangeTableValues(TableDiffMain, 
+                CalculateDifferenceTableForMainTask(mainTask.GetData(), halfTask.GetData(), N, M));
 
-            ChangeTableValues(Table, testTask.GetData());
-            ChangeTableValues(TableExact, testTask.GetExact());
-            ChangeTableValues(TableDiffTest, testTask.GetDifference(testTask.GetExact()));
-
-            ChangeButtonVisibility(button1, true);
+            ChangeButtonVisibility(button2, true);
         }
 
 
-        private void RunTopRelaxationMethodTask(
-            out TopRelaxationMethodMainTask task, 
-            out double maxAcc, 
-            out uint iterCount,
-            uint _N,
-            uint _M)
+        private void FindMax(
+            double[,] a, out double maxDif, out uint maxX, out uint maxY)
+        {
+            maxDif = 0.0;
+            maxX   = 0u;
+            maxY   = 0u;
+
+            for (uint i = 1u; i < N; ++i)
+            {
+                for (uint j = 1u; j < M; ++j)
+                {
+                    if (a[i, j] > maxDif)
+                    {
+                        maxDif = a[i, j];
+                        maxX   = i;
+                        maxY   = j;
+                    }
+                }
+            }
+        }
+
+
+        private double[,] CalculateDifferenceTableForTestTask(
+            double[,] solutionTable, double[,] exactTable, uint _N, uint _M)
+        {
+            double[,] difference = new double[_N + 1u, _M + 1u];
+
+            for (uint i = 0; i < N + 1; ++i)
+            {
+                for (uint j = 0; j < M + 1; ++j)
+                {
+                    difference[i, j] = Math.Abs(exactTable[i, j] - solutionTable[i, j]);
+                }
+            }
+
+            return difference;
+        }
+
+
+        private double[,] CalculateDifferenceTableForMainTask(
+            double[,] wholeStep, double[,] halfStep, uint _N, uint _M)
+        {
+            uint width  = _M * 2;
+            uint height = _N * 2;
+            double[,] difference = new double[N + 1u, M + 1u];
+
+            for (int iStep = 1, iHalf = 2; (iStep < height / 2) && (iHalf < height); ++iStep, iHalf += 2)
+            {
+                for (int jStep = 1, jHalf = 2; (jStep < width / 2) && (jHalf < width); ++jStep, jHalf += 2)
+                {
+                    difference[iStep, jStep] =
+                        Math.Abs(wholeStep[iStep, jStep] - halfStep[iHalf, jHalf]);
+                }
+            }
+
+            return difference;
+        }
+
+
+        private void RunMethod<Method>(
+            out Method task, out double maxAcc, out uint iterCount, uint _N, uint _M) 
+            where Method : MethodBase, new()
         {
             maxAcc    = acc_max;
             iterCount = Nmax;
 
-            task = new
-                TopRelaxationMethodMainTask(Xo, Xn, Yo, Yn, _N, _M, approximationType);
+            task = new Method();
+            task.Init(Xo, Xn, Yo, Yn, _N, _M, approximationType);
+            task.SetFunctions(mu1Main, mu2Main, mu3Main, mu4Main, FunctionMain);
 
             if (!use_optimal_parameter)
             {
-                task.Ω = double.Parse(OmegaTextBox.Text);
+                task.SetSpecialParameter(double.Parse(OmegaTextBox.Text));
             }
 
             task.Run(ref iterCount, ref maxAcc);
         }
 
 
-        private void RunSimpleIterationMethodTask(
-            out SimpleIterationMethodMainTask task,
-            out double maxAcc,
-            out uint iterCount,
-            uint _N,
-            uint _M)
-        {
-            maxAcc = acc_max;
-            iterCount = Nmax;
-
-            task = new
-                SimpleIterationMethodMainTask(Xo, Xn, Yo, Yn, _N, _M, approximationType);
-
-            if (!use_optimal_parameter)
-            {
-                task.τ = double.Parse(OmegaTextBox.Text);
-            }
-
-            task.Run(ref iterCount, ref maxAcc);
-        }
-
-
-        private void RunChebyshevSimpleIterationMethodTask(
-            out ChebyshevSimpleIterationMethodMainTask task,
-            out double maxAcc,
-            out uint iterCount,
-            uint _N,
-            uint _M)
-        {
-            maxAcc = acc_max;
-            iterCount = Nmax;
-
-            task = new
-                ChebyshevSimpleIterationMethodMainTask(Xo, Xn, Yo, Yn, _N, _M, approximationType);
-
-            if (!use_optimal_parameter)
-            {
-                task.k = (uint)double.Parse(OmegaTextBox.Text);
-            }
-
-            task.Run(ref iterCount, ref maxAcc);
-        }
-
-
-        // For main task
-        private void RunTopRelaxationMethodMainTask()
-        {
-            ChangeButtonVisibility(button2, false);
-
-            double maxDif      = 0.0;
-            double maxX        = 0.0;
-            double maxY        = 0.0;
-            double maxAccMain  = 0.0;
-            double maxAccHalf  = 0.0;
-            uint   maxIterMain = 0u;
-            uint   maxIterHalf = 0u;
-
-
-            TopRelaxationMethodMainTask mainTask = null;
-            TopRelaxationMethodMainTask halfTask = null;
-
-            Thread stepTaskThread = new Thread(() =>
-                RunTopRelaxationMethodTask(out mainTask, out maxAccMain, out maxIterMain, N, M));
-
-            Thread halfTaskThread = new Thread(() =>
-                RunTopRelaxationMethodTask(out halfTask, out maxAccHalf, out maxIterHalf, N * 2u, M * 2u));
-
-            stepTaskThread.Start();
-            halfTaskThread.Start();
-            stepTaskThread.Join();
-            halfTaskThread.Join();
-
-
-            mainTask.CalculateMaxDifference(mainTask.GetDifference(halfTask.GetData()), out maxDif, out maxX, out maxY);
-
-            ChangeTextBoxValue(OmegaTextBox,        mainTask.Ω.ToString());
-            ChangeLabelValue  (MaxDifLabelMain,     maxDif.ToString());
-            ChangeLabelValue  (ResidualMainTextBox, mainTask.CalculateR().ToString());
-            ChangeLabelValue  (IterLabelMain,       maxIterMain.ToString());
-            ChangeLabelValue  (AccMaxLabelMain,     maxAccMain.ToString());
-            ChangeLabelValue  (ResidualHalfTextBox, halfTask.CalculateR().ToString());
-            ChangeLabelValue  (IterLabelMainHalf,   maxIterHalf.ToString());
-            ChangeLabelValue  (AccMaxLabelMainHalf, maxAccHalf.ToString());
-            ChangeLabelValue  (DotLabel,            "Соответствует узлу x = " + 
-                                                    Math.Round(Math.Abs(maxX), 3).ToString() + "  y = " + 
-                                                    Math.Round(Math.Abs(maxY), 3).ToString());
-
-            tableCreator.Init(N * 2 + 1u, M * 2 + 1u);
-            ChangeTableValues(TableHalf, halfTask.GetData());
-
-            tableCreator.Init(N + 1u, M + 1u);
-            ChangeTableValues(TableMain,     mainTask.GetData());
-            ChangeTableValues(TableDiffMain, mainTask.GetDifference(halfTask.GetData()));
-
-            ChangeButtonVisibility(button2, true);
-        }
-
-
-        private void RunSimpleIterationMethodMainTask()
-        {
-            ChangeButtonVisibility(button2, false);
-
-            double maxDif = 0.0;
-            double maxX = 0.0;
-            double maxY = 0.0;
-            double maxAccMain = 0.0;
-            double maxAccHalf = 0.0;
-            uint maxIterMain = 0u;
-            uint maxIterHalf = 0u;
-
-
-            SimpleIterationMethodMainTask mainTask = null;
-            SimpleIterationMethodMainTask halfTask = null;
-
-            Thread stepTaskThread = new Thread(() =>
-                RunSimpleIterationMethodTask(out mainTask, out maxAccMain, out maxIterMain, N, M));
-
-            Thread halfTaskThread = new Thread(() =>
-                RunSimpleIterationMethodTask(out halfTask, out maxAccHalf, out maxIterHalf, N * 2u, M * 2u));
-
-            stepTaskThread.Start();
-            halfTaskThread.Start();
-            stepTaskThread.Join();
-            halfTaskThread.Join();
-
-
-            mainTask.CalculateMaxDifference(mainTask.GetDifference(halfTask.GetData()), out maxDif, out maxX, out maxY);
-
-            ChangeTextBoxValue(OmegaTextBox, mainTask.τ.ToString());
-            ChangeLabelValue(MaxDifLabelMain, maxDif.ToString());
-            ChangeLabelValue(ResidualMainTextBox, mainTask.CalculateR().ToString());
-            ChangeLabelValue(IterLabelMain, maxIterMain.ToString());
-            ChangeLabelValue(AccMaxLabelMain, maxAccMain.ToString());
-            ChangeLabelValue(ResidualHalfTextBox, halfTask.CalculateR().ToString());
-            ChangeLabelValue(IterLabelMainHalf, maxIterHalf.ToString());
-            ChangeLabelValue(AccMaxLabelMainHalf, maxAccHalf.ToString());
-            ChangeLabelValue(DotLabel, "Соответствует узлу x = " +
-                                                    Math.Round(Math.Abs(maxX), 3).ToString() + "  y = " +
-                                                    Math.Round(Math.Abs(maxY), 3).ToString());
-
-            tableCreator.Init(N * 2 + 1u, M * 2 + 1u);
-            ChangeTableValues(TableHalf, halfTask.GetData());
-
-            tableCreator.Init(N + 1u, M + 1u);
-            ChangeTableValues(TableMain, mainTask.GetData());
-            ChangeTableValues(TableDiffMain, mainTask.GetDifference(halfTask.GetData()));
-
-            ChangeButtonVisibility(button2, true);
-        }
-
-
-        private void RunChebyshevSimpleIterationMethodMainTask()
-        {
-            ChangeButtonVisibility(button2, false);
-
-            double maxDif = 0.0;
-            double maxX = 0.0;
-            double maxY = 0.0;
-            double maxAccMain = 0.0;
-            double maxAccHalf = 0.0;
-            uint maxIterMain = 0u;
-            uint maxIterHalf = 0u;
-
-
-            ChebyshevSimpleIterationMethodMainTask mainTask = null;
-            ChebyshevSimpleIterationMethodMainTask halfTask = null;
-
-            Thread stepTaskThread = new Thread(() =>
-                RunChebyshevSimpleIterationMethodTask(out mainTask, out maxAccMain, out maxIterMain, N, M));
-
-            Thread halfTaskThread = new Thread(() =>
-                RunChebyshevSimpleIterationMethodTask(out halfTask, out maxAccHalf, out maxIterHalf, N * 2u, M * 2u));
-
-            stepTaskThread.Start();
-            halfTaskThread.Start();
-            stepTaskThread.Join();
-            halfTaskThread.Join();
-
-
-            mainTask.CalculateMaxDifference(mainTask.GetDifference(halfTask.GetData()), out maxDif, out maxX, out maxY);
-
-            ChangeTextBoxValue(OmegaTextBox, mainTask.k.ToString());
-            ChangeLabelValue(MaxDifLabelMain, maxDif.ToString());
-            ChangeLabelValue(ResidualMainTextBox, mainTask.CalculateR().ToString());
-            ChangeLabelValue(IterLabelMain, maxIterMain.ToString());
-            ChangeLabelValue(AccMaxLabelMain, maxAccMain.ToString());
-            ChangeLabelValue(ResidualHalfTextBox, halfTask.CalculateR().ToString());
-            ChangeLabelValue(IterLabelMainHalf, maxIterHalf.ToString());
-            ChangeLabelValue(AccMaxLabelMainHalf, maxAccHalf.ToString());
-            ChangeLabelValue(DotLabel, "Соответствует узлу x = " +
-                                                    Math.Round(Math.Abs(maxX), 3).ToString() + "  y = " +
-                                                    Math.Round(Math.Abs(maxY), 3).ToString());
-
-            tableCreator.Init(N * 2 + 1u, M * 2 + 1u);
-            ChangeTableValues(TableHalf, halfTask.GetData());
-
-            tableCreator.Init(N + 1u, M + 1u);
-            ChangeTableValues(TableMain, mainTask.GetData());
-            ChangeTableValues(TableDiffMain, mainTask.GetDifference(halfTask.GetData()));
-
-            ChangeButtonVisibility(button2, true);
-        }
-
-
-        // Test task
         private void button1_Click(object sender, EventArgs e)
         {
             if (!ParseArguments())
@@ -444,25 +291,22 @@ namespace Dirihle
             switch (MethodComboBox.SelectedIndex)
             {
                 case 0:
-                    testTaskThread = new Thread(new ThreadStart(RunTopRelaxationMethodTestTask));
+                    testTaskThread = new Thread(new ThreadStart(RunTestTask<TopRelaxationMethod>));
                     testTaskThread.Start();
                     break;
 
                 case 1:
-                    testTaskThread = new Thread(new ThreadStart(RunSimpleIterationMethodTestTask));
+                    testTaskThread = new Thread(new ThreadStart(RunTestTask<SimpleIterationMethod>));
                     testTaskThread.Start();
                     break;
                 case 2:
-                    testTaskThread = new Thread(new ThreadStart(RunChebyshevSimpleIterationMethodTestTask));
+                    testTaskThread = new Thread(new ThreadStart(RunTestTask<ChebyshevSimpleIterationMethod>));
                     testTaskThread.Start();
                     break;
             }
-
-
         }
 
 
-        // Main task
         private void button2_Click(object sender, EventArgs e)
         {
             if(!ParseArguments())
@@ -476,16 +320,16 @@ namespace Dirihle
             switch (MethodComboBox.SelectedIndex)
             {
                 case 0:
-                    mainTaskThread = new Thread(new ThreadStart(RunTopRelaxationMethodMainTask));
+                    mainTaskThread = new Thread(new ThreadStart(RunMainTask<TopRelaxationMethod>));
                     mainTaskThread.Start();
                     break;
 
                 case 1:
-                    mainTaskThread = new Thread(new ThreadStart(RunSimpleIterationMethodMainTask));
+                    mainTaskThread = new Thread(new ThreadStart(RunMainTask<SimpleIterationMethod>));
                     mainTaskThread.Start();
                     break;
                 case 2:
-                    mainTaskThread = new Thread(new ThreadStart(RunChebyshevSimpleIterationMethodMainTask));
+                    mainTaskThread = new Thread(new ThreadStart(RunMainTask<ChebyshevSimpleIterationMethod>));
                     mainTaskThread.Start();
                     break;
             }
@@ -628,6 +472,5 @@ namespace Dirihle
                 tableCreator.Fill<double>(table, values);
             }
         }
-
     }
 }

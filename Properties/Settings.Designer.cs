@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Dirihle.Properties
+namespace NumericalMethods.Properties
 {
 
 

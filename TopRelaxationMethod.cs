@@ -4,103 +4,76 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dirihle
+namespace NumericalMethods
 {
     class TopRelaxationMethod : MethodBase
     {
-        public double Ω { get; set; }
+        public double  omega;
+        private double a2Opp;
+        private double omegak2;
+        private double omegah2;
+        private double omegaa2;
 
-        public TopRelaxationMethod(
-            double Xo, 
-            double Xn, 
-            double Yo, 
-            double Yn, 
-            uint N, 
-            uint M,
-            ApproximationType approximationType) : 
-            base(Xo, Xn, Yo, Yn, N, M, approximationType) 
+
+        public TopRelaxationMethod() : base()
         {
-            double lambdaMin = 
-                (2.0 * k * k / (h * h + (k * k)) * 
-                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) * 
-                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo)))) + 
-                (2.0 * h * h / ((h * h) + (k * k)) * 
-                Math.Sin(Math.PI * k / (2.0 * (Yn - Yo))) * 
+
+        }
+
+
+        public TopRelaxationMethod(double Xo, 
+                                   double Xn, 
+                                   double Yo, 
+                                   double Yn, 
+                                   uint N, 
+                                   uint M,
+                                   ApproximationType approximationType) : 
+                                   base(Xo, Xn, Yo, Yn, N, M, approximationType) 
+        {
+
+        }
+
+
+        public override double GetSpecialParameter() => omega;
+
+
+        public override void   SetSpecialParameter(double value) => omega = value;
+
+
+        protected override void   InitMethod()
+        {
+            double lambdaMin =
+                (2.0 * k * k / (h * h + (k * k)) *
+                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) *
+                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo)))) +
+                (2.0 * h * h / ((h * h) + (k * k)) *
+                Math.Sin(Math.PI * k / (2.0 * (Yn - Yo))) *
                 Math.Sin(Math.PI * k / (2.0 * (Yn - Yo))));
 
-            Ω = 2.0 / (1.0 + Math.Sqrt(lambdaMin * (2.0 - lambdaMin)));
+            omega = 2.0 / (1.0 + Math.Sqrt(lambdaMin * (2.0 - lambdaMin)));
         }
 
-        public override void Run(ref uint maxIter, ref double maxAccuracy)
+
+        protected override void   InitRun()
         {
-            double accuracy = 0.0;
-            double h2       = -Math.Pow(N / (Xn - Xo), 2);
-            double k2       = -Math.Pow(M / (Yn - Yo), 2);
-            double a2       = -2.0 * (h2 + k2);
-            double a2Opp    = 1.0 / a2;
-            double Ωk2      = Ω * k2;
-            double Ωh2      = Ω * h2;
-            double Ωa2      = (1.0 - Ω) * a2;
-            uint counter    = 0u;
-
-            double current_accuracy;
-            double new_v;
-
-            do
-            {
-                accuracy = 0.0;
-
-                for (uint j = 1u; j < M; ++j)
-                {
-                    for (uint i = 1u; i < N; ++i)
-                    {
-                        double current = data[i, j];
-
-                        new_v  = -Ωk2 * (data[i + 1u, j] + data[i - 1u, j]);                                 
-                        new_v += -Ωh2 * (data[i, j + 1u] + data[i, j - 1u]);
-                        new_v +=  Ωa2 *  data[i, j] + Ω * -function[i, j];
-                        new_v *=  a2Opp;
-
-                        current_accuracy = Math.Abs(current - new_v);
-
-                        if (accuracy < current_accuracy)
-                        {
-                            accuracy = current_accuracy;
-                        }
-
-                        data[i, j] = new_v;
-                    }
-                }
-
-            } while ((maxIter > ++counter) && (accuracy >= maxAccuracy));
-
-            maxIter     = counter;
-            maxAccuracy = accuracy;
+            a2Opp = 1.0 / a2;
+            omegak2 = omega * k2;
+            omegah2 = omega * h2;
+            omegaa2 = (1.0 - omega) * a2;
         }
 
-        protected override double Function(uint i, uint j)
+
+        protected override void   InitIteration()
         {
-            throw new NotImplementedException();
+            
         }
 
-        protected override double mu1(double y)
-        {
-            throw new NotImplementedException();
-        }
 
-        protected override double mu2(double y)
+        protected override double GetNextValue(uint i, uint j)
         {
-            throw new NotImplementedException();
-        }
-
-        protected override double mu3(double x)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override double mu4(double x)
-        {
-            throw new NotImplementedException();
+            return a2Opp * ((-omegak2 * (data[i + 1u, j] + data[i - 1u, j])) +
+                            (-omegah2 * (data[i, j + 1u] + data[i, j - 1u])) +
+                            (omegaa2 * data[i, j] + omega * -function[i, j]));
         }
     }
 }

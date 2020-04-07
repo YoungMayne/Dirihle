@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Dirihle.Properties {
+namespace NumericalMethods.Properties {
     using System;
     
     
@@ -57,16 +57,6 @@ namespace Dirihle.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Picture {
-            get {
-                object obj = ResourceManager.GetObject("Picture", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

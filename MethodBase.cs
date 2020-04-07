@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dirihle
+namespace NumericalMethods
 {
     enum ApproximationType
     {
@@ -22,24 +22,54 @@ namespace Dirihle
         protected double Xn;
         protected double Yo;
         protected double Yn;
+        protected double h2;
+        protected double k2;
+        protected double a2;
         protected double h;
         protected double k;
 
         protected double[,] data;
         protected double[,] function;
+        protected double[,] residual;
 
 
-        public MethodBase(
-            double Xo, 
-            double Xn, 
-            double Yo, 
-            double Yn, 
-            uint N, 
-            uint M, 
-            ApproximationType approximationType)
+        private Func<double, double> mu1;
+        private Func<double, double> mu2;
+        private Func<double, double> mu3;
+        private Func<double, double> mu4;
+        private Func<double, double, double> Function;
+        private Func<double, double, double> ExactFunction;
+
+
+        public MethodBase()
+        {
+
+        }
+
+
+        public MethodBase(double Xo,
+                          double Xn,
+                          double Yo,
+                          double Yn,
+                          uint N,
+                          uint M,
+                          ApproximationType approximationType)
+        {
+            Init(Xo, Xn, Yo, Yn, N, M, approximationType);
+        }
+
+
+        public void Init(double Xo,
+                         double Xn,
+                         double Yo,
+                         double Yn,
+                         uint N,
+                         uint M,
+                         ApproximationType approximationType)
         {
             this.data     = new double[N + 1u, M + 1u];
             this.function = new double[N + 1u, M + 1u];
+            this.residual = new double[N + 1u, M + 1u];
             this.Xo       = Xo;
             this.Yo       = Yo;
             this.Xn       = Xn;
@@ -48,32 +78,106 @@ namespace Dirihle
             this.M        = M;
             this.h        = (this.Xn - this.Xo) / N;
             this.k        = (this.Yn - this.Yo) / M;
+            this.h2       = -Math.Pow(N / (Xn - Xo), 2);
+            this.k2       = -Math.Pow(M / (Yn - Yo), 2);
+            this.a2       = -2.0 * (h2 + k2);
 
-            Init(approximationType);
+            Approximate(approximationType);
+            InitMethod();
         }
 
 
-        public    abstract void   Run           (ref uint   maxIter, 
-                                                 ref double maxAccuracy);
-        protected abstract double Function      (uint i, uint j);
-        protected abstract double mu1(double y);
-        protected abstract double mu2(double y);
-        protected abstract double mu3(double x);
-        protected abstract double mu4(double x);
+        public void Run(ref uint maxIter, ref double maxAccuracy)
+        {
+            double current_accuracy;
+            double nextValue;
+            double currentValue;
+            double accuracy;
+            uint counter = 0u;
+
+            InitRun();
+
+            do
+            {
+                accuracy = 0.0;
+
+                InitIteration();
+
+                for (uint j = 1u; j < M; ++j)
+                {
+                    for (uint i = 1u; i < N; ++i)
+                    {
+                        currentValue     = data[i, j];
+                        nextValue        = GetNextValue(i, j);
+                        current_accuracy = Math.Abs(currentValue - nextValue);
+
+                        if (accuracy < current_accuracy)
+                        {
+                            accuracy = current_accuracy;
+                        }
+
+                        data[i, j] = nextValue;
+                    }
+                }
+
+            } while ((maxIter > ++counter) && (accuracy >= maxAccuracy));
+
+            maxIter = counter;
+            maxAccuracy = accuracy;
+        }
 
 
-        protected double X(uint i)     => Xo + i * h;
-        protected double Y(uint j)     => Yo + j * k;
-        public    double[,] GetData()  => data;
-        public    uint      GetN()     => N;
-        public    uint      GetM()     => M;
+        public void SetFunctions(
+            Func<double, double> mu1, Func<double, double> mu2, Func<double, double> mu3, 
+            Func<double, double> mu4, Func<double, double, double> Function, Func<double, double, double> ExactFunction = null)
+        {
+            this.mu1 = mu1;
+            this.mu2 = mu2;
+            this.mu3 = mu3;
+            this.mu4 = mu4;
+            this.Function      = Function;
+            this.ExactFunction = ExactFunction;
 
-        public double CalculateR()
+            for (uint i = 0u; i < N + 1; ++i)
+            {
+                for (uint j = 0u; j < M + 1; ++j)
+                {
+                    data[i, j] = V(i, j);
+                }
+            }
+
+            for (uint i = 1u; i < N; ++i)
+            {
+                for (uint j = 1u; j < M; ++j)
+                {
+                    function[i, j] = Function(X(i), Y(j));
+                }
+            }
+        }
+
+
+        public double[,] GetData() => data;
+
+
+        public double[,] GetExactTable()
+        {
+            double[,] exact = new double[N + 1u, M + 1u];
+
+            for (uint i = 0u; i < N + 1u; ++i)
+            {
+                for (uint j = 0u; j < M + 1u; ++j)
+                {
+                    exact[i, j] = ExactFunction(X(i), Y(j));
+                }
+            }
+
+            return exact;
+        }
+
+
+        public double CalculateResidual()
         {
             double R = 0.0;
-            double h2 = -Math.Pow(N / (Xn - Xo), 2);
-            double k2 = -Math.Pow(M / (Yn - Yo), 2);
-            double a2 = -2.0 * (h2 + k2);
 
             for (uint j = 1u; j < M; ++j)
             {
@@ -85,12 +189,31 @@ namespace Dirihle
                          data[i + 1, j]) +
                          k2 * (data[i, j - 1] +
                          data[i, j + 1]) +
-                         Function(i, j), 2.0);
+                         Function(X(i), Y(j)), 2.0);
                 }
             }
 
             return Math.Sqrt(R);
         }
+
+
+        public uint GetN() => N;
+
+
+        public uint GetM() => M;
+
+
+        public abstract double GetSpecialParameter();
+
+
+        public abstract void SetSpecialParameter(double value);
+
+
+        protected double X(uint i) => Xo + i * h;
+
+
+        protected double Y(uint j) => Yo + j * k;
+
 
         protected double V(uint i, uint j)
         {
@@ -114,30 +237,37 @@ namespace Dirihle
             return data[i, j];
         }
 
-        private void Init(ApproximationType approximationType)
+
+        protected void UpdateResidual()
         {
-            Approximate(approximationType);
-
-            for (uint i = 0u; i < N + 1; ++i)
+            for (uint i = 1; i < N; ++i)
             {
-                for (uint j = 0u; j < M + 1; ++j)
+                for (uint j = 1; j < M; ++j)
                 {
-                    data[i, j] = V(i, j);
-                }
-            }
-
-            for(uint i = 1u; i < N; ++i)
-            {
-                for(uint j = 1u; j < M; ++j)
-                {
-                    function[i, j] = Function(i, j);
+                    residual[i, j] = a2 * data[i, j] +
+                                     h2 * (data[i - 1, j] + data[i + 1, j]) +
+                                     k2 * (data[i, j - 1] + data[i, j + 1]) +
+                                     function[i, j];
                 }
             }
         }
 
+
+        protected abstract void InitMethod();
+
+
+        protected abstract void InitRun();
+
+
+        protected abstract void InitIteration();
+
+
+        protected abstract double GetNextValue(uint i, uint j);
+
+
         private void Approximate(ApproximationType approximationType)
         {
-            switch(approximationType)
+            switch (approximationType)
             {
                 case ApproximationType.ZERO_APPROXIMATION:
                     ZeroApproximation();
@@ -153,6 +283,7 @@ namespace Dirihle
             }
         }
 
+
         private void ZeroApproximation()
         {
             for (uint i = 0u; i < N + 1; ++i)
@@ -163,6 +294,7 @@ namespace Dirihle
                 }
             }
         }
+
 
         private void XInterpolation()
         {
@@ -176,6 +308,7 @@ namespace Dirihle
             }
         }
 
+
         private void YInterpolation()
         {
             for (uint i = 1u; i < N; ++i)
@@ -187,6 +320,5 @@ namespace Dirihle
                 }
             }
         }
-
     }
 }

@@ -6,11 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dirihle
+namespace NumericalMethods
 {
     class SimpleIterationMethod : MethodBase
     {
-        public double τ { get; set; }
+        private double tau;
+
+
+        public SimpleIterationMethod() : base()
+        {
+
+        }
+
 
         public SimpleIterationMethod(
             double Xo,
@@ -22,92 +29,44 @@ namespace Dirihle
             ApproximationType approximationType)
             : base(Xo, Xn, Yo, Yn, N, M, approximationType)
         {
-            double h2 = -Math.Pow(N / (Xn - Xo), 2);
-            double k2 = -Math.Pow(M / (Yn - Yo), 2);
-            double a2 = -2.0 * (h2 + k2);
-            double r = Math.Abs(h2) + Math.Abs(k2) + Math.Abs(k2);
-
-            τ = 2.0 / ((a2 - r) + (a2 + r));
         }
 
-        public override void Run(ref uint maxIter, ref double maxAccuracy)
+
+        public override double GetSpecialParameter()
         {
-            double[,] residual = new double[N + 1u, M + 1u];
-            double accuracy    = 0.0;
-            double h2          = -Math.Pow(N / (Xn - Xo), 2);
-            double k2          = -Math.Pow(M / (Yn - Yo), 2);
-            double a2          = -2.0 * (h2 + k2);
-            uint counter       = 0u;
-
-            double current_accuracy;
-            double current;
-            double new_v;
-
-            do
-            {
-                accuracy = 0.0;
-
-                for (uint i = 1; i < N; i++)
-                {
-                    for (uint j = 1; j < M; j++)
-                    {
-                        residual[i, j] =
-                            a2 * data[i, j] +
-                            h2 * (data[i - 1, j] + data[i + 1, j]) +
-                            k2 * (data[i, j - 1] + data[i, j + 1])
-                            + function[i, j];
-                    }
-                }
-
-
-                for (uint i = 1; i < N; i++)
-                {
-                    for (uint j = 1; j < M; j++)
-                    {
-                        current = data[i, j];
-
-                        new_v = data[i, j] - τ * residual[i, j];
-
-                        current_accuracy = Math.Abs(current - new_v);
-
-                        if (accuracy < current_accuracy)
-                        {
-                            accuracy = current_accuracy;
-                        }
-
-                        data[i, j] = new_v;
-                    }
-                }
-
-            } while ((maxIter > ++counter) && (accuracy >= maxAccuracy));
-
-            maxIter = counter;
-            maxAccuracy = accuracy;
+            return tau;
         }
 
-        protected override double Function(uint i, uint j)
+
+        public override void   SetSpecialParameter(double value)
         {
-            throw new NotImplementedException();
+            tau = value;
         }
 
-        protected override double mu1(double y)
+
+        protected override void   InitMethod()
         {
-            throw new NotImplementedException();
+            double radius = Math.Abs(h2) + Math.Abs(k2) + Math.Abs(k2);
+
+            tau = 2.0 / ((a2 - radius) + (a2 + radius));
         }
 
-        protected override double mu2(double y)
+
+        protected override void   InitRun()
         {
-            throw new NotImplementedException();
+
         }
 
-        protected override double mu3(double x)
+
+        protected override void   InitIteration()
         {
-            throw new NotImplementedException();
+            UpdateResidual();
         }
 
-        protected override double mu4(double x)
+
+        protected override double GetNextValue(uint i, uint j)
         {
-            throw new NotImplementedException();
+            return data[i, j] - tau * residual[i, j];
         }
     }
 }

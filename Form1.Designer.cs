@@ -1,4 +1,4 @@
-﻿namespace Dirihle
+﻿namespace NumericalMethods
 {
     partial class Form1
     {
