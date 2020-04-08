@@ -32,6 +32,8 @@ namespace NumericalMethods
         protected double[,] function;
         protected double[,] residual;
 
+        protected ApproximationType approximationType;
+
 
         private Func<double, double> mu1;
         private Func<double, double> mu2;
@@ -72,8 +74,8 @@ namespace NumericalMethods
             this.h2 = -Math.Pow(N / (Xn - Xo), 2);
             this.k2 = -Math.Pow(M / (Yn - Yo), 2);
             this.a2 = -2.0 * (h2 + k2);
+            this.approximationType = approximationType;
 
-            Approximate(approximationType);
             InitMethod();
         }
 
@@ -85,6 +87,8 @@ namespace NumericalMethods
             double currentValue;
             double accuracy;
             uint counter = 0u;
+
+            Approximate(approximationType);
 
 
             for (uint i = 0u; i < N + 1; ++i)
