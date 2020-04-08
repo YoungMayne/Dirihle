@@ -196,7 +196,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(308, 20);
+            this.label5.Location = new System.Drawing.Point(308, 14);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(98, 13);
             this.label5.TabIndex = 10;
@@ -205,7 +205,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(308, 46);
+            this.label6.Location = new System.Drawing.Point(308, 40);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 13);
             this.label6.TabIndex = 11;
@@ -213,28 +213,28 @@
             // 
             // YoBox
             // 
-            this.YoBox.Location = new System.Drawing.Point(436, 44);
+            this.YoBox.Location = new System.Drawing.Point(436, 38);
             this.YoBox.Name = "YoBox";
             this.YoBox.Size = new System.Drawing.Size(59, 20);
             this.YoBox.TabIndex = 12;
             // 
             // YnBox
             // 
-            this.YnBox.Location = new System.Drawing.Point(497, 44);
+            this.YnBox.Location = new System.Drawing.Point(497, 38);
             this.YnBox.Name = "YnBox";
             this.YnBox.Size = new System.Drawing.Size(59, 20);
             this.YnBox.TabIndex = 13;
             // 
             // XoBox
             // 
-            this.XoBox.Location = new System.Drawing.Point(436, 18);
+            this.XoBox.Location = new System.Drawing.Point(436, 12);
             this.XoBox.Name = "XoBox";
             this.XoBox.Size = new System.Drawing.Size(59, 20);
             this.XoBox.TabIndex = 14;
             // 
             // XnBox
             // 
-            this.XnBox.Location = new System.Drawing.Point(497, 18);
+            this.XnBox.Location = new System.Drawing.Point(497, 12);
             this.XnBox.Name = "XnBox";
             this.XnBox.Size = new System.Drawing.Size(59, 20);
             this.XnBox.TabIndex = 15;

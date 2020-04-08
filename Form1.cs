@@ -132,8 +132,8 @@ namespace NumericalMethods
             ChangeLabelValue(IterLabel,       iterCount.ToString());
             ChangeLabelValue(AccMaxLabel,     maxAcc.ToString());
             ChangeLabelValue(maxDifLabel,     maxDif.ToString());
-            ChangeLabelValue(DotLabelTest,    "Соответствует узлу i = " + maxI.ToString() +
-                                                               "  j = " + maxJ.ToString());
+            ChangeLabelValue(DotLabelTest,    "Соответствует узлу x = " + Math.Abs(Math.Round(testTask.X(maxI), 3)).ToString() +
+                                                               "  y = " + Math.Abs(Math.Round(testTask.Y(maxJ), 3)).ToString());
 
             tableCreator.Init(N + 1u, M + 1u);
 
@@ -184,8 +184,8 @@ namespace NumericalMethods
             ChangeLabelValue(ResidualHalfTextBox, halfTask.CalculateResidual().ToString());
             ChangeLabelValue(IterLabelMainHalf, maxIterHalf.ToString());
             ChangeLabelValue(AccMaxLabelMainHalf, maxAccHalf.ToString());
-            ChangeLabelValue(DotLabel, "Соответствует узлу i = " + maxI.ToString() + 
-                                                        "  j = " + maxJ.ToString());
+            ChangeLabelValue(DotLabel, "Соответствует узлу x = " + Math.Abs(Math.Round(mainTask.X(maxI), 3)).ToString() + 
+                                                        "  y = " + Math.Abs(Math.Round(mainTask.Y(maxJ), 3)).ToString());
 
             tableCreator.Init(N * 2 + 1u, M * 2 + 1u);
             ChangeTableValues(TableHalf, halfTask.GetData());

@@ -47,40 +47,31 @@ namespace NumericalMethods
         }
 
 
-        public MethodBase(double Xo,
-                          double Xn,
-                          double Yo,
-                          double Yn,
-                          uint N,
-                          uint M,
-                          ApproximationType approximationType)
+        public MethodBase(
+            double Xo, double Xn, double Yo, double Yn,
+            uint N, uint M, ApproximationType approximationType)
         {
             Init(Xo, Xn, Yo, Yn, N, M, approximationType);
         }
 
 
-        public void Init(double Xo,
-                         double Xn,
-                         double Yo,
-                         double Yn,
-                         uint N,
-                         uint M,
-                         ApproximationType approximationType)
+        public void Init(
+            double Xo, double Xn, double Yo, double Yn,
+            uint N, uint M, ApproximationType approximationType)
         {
-            this.data     = new double[N + 1u, M + 1u];
+            this.data = new double[N + 1u, M + 1u];
             this.function = new double[N + 1u, M + 1u];
-            this.residual = new double[N + 1u, M + 1u];
-            this.Xo       = Xo;
-            this.Yo       = Yo;
-            this.Xn       = Xn;
-            this.Yn       = Yn;
-            this.N        = N;
-            this.M        = M;
-            this.h        = (this.Xn - this.Xo) / N;
-            this.k        = (this.Yn - this.Yo) / M;
-            this.h2       = -Math.Pow(N / (Xn - Xo), 2);
-            this.k2       = -Math.Pow(M / (Yn - Yo), 2);
-            this.a2       = -2.0 * (h2 + k2);
+            this.Xo = Xo;
+            this.Yo = Yo;
+            this.Xn = Xn;
+            this.Yn = Yn;
+            this.N = N;
+            this.M = M;
+            this.h = (this.Xn - this.Xo) / N;
+            this.k = (this.Yn - this.Yo) / M;
+            this.h2 = -Math.Pow(N / (Xn - Xo), 2);
+            this.k2 = -Math.Pow(M / (Yn - Yo), 2);
+            this.a2 = -2.0 * (h2 + k2);
 
             Approximate(approximationType);
             InitMethod();
@@ -95,6 +86,16 @@ namespace NumericalMethods
             double accuracy;
             uint counter = 0u;
 
+
+            for (uint i = 0u; i < N + 1; ++i)
+            {
+                for (uint j = 0u; j < M + 1; ++j)
+                {
+                    data[i, j] = V(i, j);
+                    function[i, j] = Function(X(i), Y(j));
+                }
+            }
+
             InitRun();
 
             do
@@ -107,8 +108,8 @@ namespace NumericalMethods
                 {
                     for (uint i = 1u; i < N; ++i)
                     {
-                        currentValue     = data[i, j];
-                        nextValue        = GetNextValue(i, j);
+                        currentValue = data[i, j];
+                        nextValue = GetNextValue(i, j);
                         current_accuracy = Math.Abs(currentValue - nextValue);
 
                         if (accuracy < current_accuracy)
@@ -128,31 +129,17 @@ namespace NumericalMethods
 
 
         public void SetFunctions(
-            Func<double, double> mu1, Func<double, double> mu2, Func<double, double> mu3, 
-            Func<double, double> mu4, Func<double, double, double> Function, Func<double, double, double> ExactFunction = null)
+            Func<double, double> mu1, Func<double, double> mu2,
+            Func<double, double> mu3, Func<double, double> mu4,
+            Func<double, double, double> Function,
+            Func<double, double, double> ExactFunction = null)
         {
             this.mu1 = mu1;
             this.mu2 = mu2;
             this.mu3 = mu3;
             this.mu4 = mu4;
-            this.Function      = Function;
+            this.Function = Function;
             this.ExactFunction = ExactFunction;
-
-            for (uint i = 0u; i < N + 1; ++i)
-            {
-                for (uint j = 0u; j < M + 1; ++j)
-                {
-                    data[i, j] = V(i, j);
-                }
-            }
-
-            for (uint i = 1u; i < N; ++i)
-            {
-                for (uint j = 1u; j < M; ++j)
-                {
-                    function[i, j] = Function(X(i), Y(j));
-                }
-            }
         }
 
 
@@ -209,10 +196,10 @@ namespace NumericalMethods
         public abstract void SetSpecialParameter(double value);
 
 
-        protected double X(uint i) => Xo + i * h;
+        public double X(uint i) => Xo + i * h;
 
 
-        protected double Y(uint j) => Yo + j * k;
+        public double Y(uint j) => Yo + j * k;
 
 
         protected double V(uint i, uint j)
@@ -235,21 +222,6 @@ namespace NumericalMethods
             }
 
             return data[i, j];
-        }
-
-
-        protected void UpdateResidual()
-        {
-            for (uint i = 1; i < N; ++i)
-            {
-                for (uint j = 1; j < M; ++j)
-                {
-                    residual[i, j] = a2 * data[i, j] +
-                                     h2 * (data[i - 1, j] + data[i + 1, j]) +
-                                     k2 * (data[i, j - 1] + data[i, j + 1]) +
-                                     function[i, j];
-                }
-            }
         }
 
 

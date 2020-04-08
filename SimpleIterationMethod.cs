@@ -1,6 +1,4 @@
-﻿using CenterSpace.NMath.Core;
-using CenterSpace.NMath.Matrix;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,13 +36,13 @@ namespace NumericalMethods
         }
 
 
-        public override void   SetSpecialParameter(double value)
+        public override void SetSpecialParameter(double value)
         {
             tau = value;
         }
 
 
-        protected override void   InitMethod()
+        protected override void InitMethod()
         {
             double radius = Math.Abs(h2) + Math.Abs(k2) + Math.Abs(k2);
 
@@ -52,15 +50,24 @@ namespace NumericalMethods
         }
 
 
-        protected override void   InitRun()
+        protected override void InitRun()
         {
-
+            residual = new double[N + 1u, M + 1u];
         }
 
 
-        protected override void   InitIteration()
+        protected override void InitIteration()
         {
-            UpdateResidual();
+            for (uint i = 1; i < N; ++i)
+            {
+                for (uint j = 1; j < M; ++j)
+                {
+                    residual[i, j] = a2 * data[i, j] +
+                                     h2 * (data[i - 1, j] + data[i + 1, j]) +
+                                     k2 * (data[i, j - 1] + data[i, j + 1]) +
+                                     function[i, j];
+                }
+            }
         }
 
 
