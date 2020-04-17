@@ -75,7 +75,6 @@ namespace NumericalMethods
             this.k2 = -Math.Pow(M / (Yn - Yo), 2);
             this.a2 = -2.0 * (h2 + k2);
             this.approximationType = approximationType;
-
             InitMethod();
         }
 
@@ -88,7 +87,7 @@ namespace NumericalMethods
             double accuracy;
             uint counter = 0u;
 
-            Approximate(approximationType);
+            Approximate();
 
 
             for (uint i = 0u; i < N + 1; ++i)
@@ -241,7 +240,7 @@ namespace NumericalMethods
         protected abstract double GetNextValue(uint i, uint j);
 
 
-        private void Approximate(ApproximationType approximationType)
+        private void Approximate()
         {
             switch (approximationType)
             {

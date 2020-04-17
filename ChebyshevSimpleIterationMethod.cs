@@ -47,25 +47,28 @@ namespace NumericalMethods
 
         protected override void InitMethod()
         {
-            K = 1u;
+            K = 2u;
         }
 
 
         protected override void InitRun()
         {
-            double radiusMax = Math.Abs(h2) + Math.Abs(k2) + Math.Abs(k2);
-            double lambdaMin = (a2 - radiusMax);
-            double lambdaMax = (a2 + radiusMax);
-            tau              = new double[K];
+            tau = new double[K];
+
+            double lambdaMin = 4.0 / (h * h) * Math.Sin(Math.PI / (2.0 * N)) * Math.Sin(Math.PI / (2.0 * N)) +
+                               4.0 / (k * k) * Math.Sin(Math.PI / (2.0 * M)) * Math.Sin(Math.PI / (2.0 * M));
+
+            double lambdaMax = 4.0 / (h * h) * Math.Sin(Math.PI * (N - 1) / (2.0 * N)) * Math.Sin(Math.PI * (N - 1) / (2.0 * N)) +
+                               4.0 / (k * k) * Math.Sin(Math.PI * (M - 1) / (2.0 * M)) * Math.Sin(Math.PI * (M - 1) / (2.0 * M));
 
             for (uint i = 0u; i < K; ++i)
             {
                 tau[i] = Math.Pow((((lambdaMin + lambdaMax) / 2.0) +
                                    ((lambdaMax - lambdaMin) / 2.0) *
-                                     Math.Cos((Math.PI / (2.0 * K)) * (2.0 * i - 1.0))), -1.0);
+                                    Math.Cos(((Math.PI / (2.0 * K)) * (1.0 + 2u * i)))), -1.0);
             }
 
-            counter  = -1u;
+            counter = -1u;
             residual = new double[N + 1u, M + 1u];
         }
 

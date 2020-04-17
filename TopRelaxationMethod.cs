@@ -43,8 +43,8 @@ namespace NumericalMethods
         protected override void   InitMethod()
         {
             double lambdaMin =
-                (2.0 * k * k / (h * h + (k * k)) *
-                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) *
+                (2.0 * k * k / ((h * h) + (k * k)) * 
+                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) * 
                 Math.Sin(Math.PI * h / (2.0 * (Xn - Xo)))) +
                 (2.0 * h * h / ((h * h) + (k * k)) *
                 Math.Sin(Math.PI * k / (2.0 * (Yn - Yo))) *
