@@ -55,7 +55,7 @@ namespace NumericalMethods
 
             for (uint i = Q + 1u; i < N; ++i)
             {
-                for (uint j = 1u; j < P; ++j)
+                for (uint j = 1u; j <= P; ++j)
                 {
                     residual[i, j] = a2 * data[i, j] +
                                      h2 * (data[i - 1u, j] + data[i + 1u, j]) +
@@ -66,7 +66,7 @@ namespace NumericalMethods
 
             for (uint i = 1u; i < N; ++i)
             {
-                for (uint j = P; j < M; ++j)
+                for (uint j = P + 1u; j < M; ++j)
                 {
                     residual[i, j] = a2 * data[i, j] +
                                      h2 * (data[i - 1u, j] + data[i + 1u, j]) +
@@ -77,7 +77,7 @@ namespace NumericalMethods
 
             for (uint i = Q + 1u; i < N; ++i)
             {
-                for (uint j = 1u; j < P; ++j)
+                for (uint j = 1u; j <= P; ++j)
                 {
                     double ar = a2 * residual[i, j] +
                                 h2 * (residual[i - 1, j] + residual[i + 1, j]) +
@@ -89,7 +89,7 @@ namespace NumericalMethods
 
             for (uint i = 1u; i < N; ++i)
             {
-                for (uint j = P; j < M; ++j)
+                for (uint j = P + 1u; j < M; ++j)
                 {
                     double ar = a2 * residual[i, j] +
                                 h2 * (residual[i - 1, j] + residual[i + 1, j]) +

@@ -70,7 +70,7 @@ namespace NumericalMethods
 
                 for (uint i = Q + 1u; i < N; ++i)
                 {
-                    for (uint j = 1u; j < P; ++j)
+                    for (uint j = 1u; j <= P; ++j)
                     {
                         currentValue = data[i, j];
                         nextValue = GetNextValue(i, j);
@@ -87,7 +87,7 @@ namespace NumericalMethods
 
                 for (uint i = 1u; i < N; ++i)
                 {
-                    for (uint j = P; j < M; ++j)
+                    for (uint j = P + 1u; j < M; ++j)
                     {
                         currentValue = data[i, j];
                         nextValue = GetNextValue(i, j);
@@ -193,7 +193,7 @@ namespace NumericalMethods
         {
             for (uint i = Q + 1u; i < N; ++i)
             {
-                for (uint j = 1u; j < P; ++j)
+                for (uint j = 1u; j <= P; ++j)
                 {
                     data[i, j] = ((Xo + i * h) - Xo) / (Xn - Xo) * mu2(Yo + j * k) +
                                  ((Xo + i * h) - Xn) / (Xo - Xn) * mu1(Yo + j * k);
@@ -202,7 +202,7 @@ namespace NumericalMethods
 
             for (uint i = 1u; i < N; ++i)
             {
-                for (uint j = P; j < M; ++j)
+                for (uint j = P + 1u; j < M; ++j)
                 {
                     data[i, j] = ((Xo + i * h) - Xo) / (Xn - Xo) * mu2(Yo + j * k) +
                                  ((Xo + i * h) - Xn) / (Xo - Xn) * mu1(Yo + j * k);
