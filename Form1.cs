@@ -137,7 +137,7 @@ namespace NumericalMethods
 
         private void RunTestTaskCustom<Method>() where Method : CustomMethodBase, new()
         {
-            ChangeButtonVisibility(button1, false);
+            ChangeButtonVisibility(button3, false);
 
             double maxDif = 0.0;
             double maxAcc = acc_max;
@@ -184,7 +184,7 @@ namespace NumericalMethods
             ChangeTableValues(TableDiffTest,
                 CalculateDifferenceTableForTestTask(testTask.GetData(), testTask.GetExactTable(), N, M));
 
-            ChangeButtonVisibility(button1, true);
+            ChangeButtonVisibility(button3, true);
         }
 
 
