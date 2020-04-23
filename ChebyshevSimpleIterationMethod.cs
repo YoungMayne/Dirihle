@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NumericalMethods
 {
-    class ChebyshevSimpleIterationMethod : MethodBase
+    class ChebyshevSimpleIterationMethod : RectangularMethodBase
     {
         private uint K;
         private double[] tau;
@@ -47,7 +47,7 @@ namespace NumericalMethods
 
         protected override void InitMethod()
         {
-            K = 2u;
+            K = 1u;
         }
 
 
@@ -55,11 +55,11 @@ namespace NumericalMethods
         {
             tau = new double[K];
 
-            double lambdaMin = 4.0 / (h * h) * Math.Sin(Math.PI / (2.0 * N)) * Math.Sin(Math.PI / (2.0 * N)) +
-                               4.0 / (k * k) * Math.Sin(Math.PI / (2.0 * M)) * Math.Sin(Math.PI / (2.0 * M));
+            double lambdaMin = 4.0 / (h * h) * Math.Sin(Math.PI / (2u * N)) * Math.Sin(Math.PI / (2u * N)) +
+                               4.0 / (k * k) * Math.Sin(Math.PI / (2u * M)) * Math.Sin(Math.PI / (2u * M));
 
-            double lambdaMax = 4.0 / (h * h) * Math.Sin(Math.PI * (N - 1) / (2.0 * N)) * Math.Sin(Math.PI * (N - 1) / (2.0 * N)) +
-                               4.0 / (k * k) * Math.Sin(Math.PI * (M - 1) / (2.0 * M)) * Math.Sin(Math.PI * (M - 1) / (2.0 * M));
+            double lambdaMax = 4.0 / (h * h) * Math.Sin(Math.PI * (N - 1u) / (2.0 * N)) * Math.Sin(Math.PI * (N - 1u) / (2u * N)) +
+                               4.0 / (k * k) * Math.Sin(Math.PI * (M - 1u) / (2.0 * M)) * Math.Sin(Math.PI * (M - 1u) / (2u * M));
 
             for (uint i = 0u; i < K; ++i)
             {

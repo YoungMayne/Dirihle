@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace NumericalMethods
 {
-    class TopRelaxationMethod : MethodBase
+    class TopRelaxationMethod : RectangularMethodBase
     {
-        public double  omega;
+        public double omega;
         private double a2Opp;
         private double omegak2;
         private double omegah2;
@@ -21,14 +21,14 @@ namespace NumericalMethods
         }
 
 
-        public TopRelaxationMethod(double Xo, 
-                                   double Xn, 
-                                   double Yo, 
-                                   double Yn, 
-                                   uint N, 
+        public TopRelaxationMethod(double Xo,
+                                   double Xn,
+                                   double Yo,
+                                   double Yn,
+                                   uint N,
                                    uint M,
-                                   ApproximationType approximationType) : 
-                                   base(Xo, Xn, Yo, Yn, N, M, approximationType) 
+                                   ApproximationType approximationType) :
+                                   base(Xo, Xn, Yo, Yn, N, M, approximationType)
         {
 
         }
@@ -37,14 +37,14 @@ namespace NumericalMethods
         public override double GetSpecialParameter() => omega;
 
 
-        public override void   SetSpecialParameter(double value) => omega = value;
+        public override void SetSpecialParameter(double value) => omega = value;
 
 
-        protected override void   InitMethod()
+        protected override void InitMethod()
         {
             double lambdaMin =
-                (2.0 * k * k / ((h * h) + (k * k)) * 
-                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) * 
+                (2.0 * k * k / ((h * h) + (k * k)) *
+                Math.Sin(Math.PI * h / (2.0 * (Xn - Xo))) *
                 Math.Sin(Math.PI * h / (2.0 * (Xn - Xo)))) +
                 (2.0 * h * h / ((h * h) + (k * k)) *
                 Math.Sin(Math.PI * k / (2.0 * (Yn - Yo))) *
@@ -54,7 +54,7 @@ namespace NumericalMethods
         }
 
 
-        protected override void   InitRun()
+        protected override void InitRun()
         {
             a2Opp = 1.0 / a2;
             omegak2 = omega * k2;
@@ -63,9 +63,9 @@ namespace NumericalMethods
         }
 
 
-        protected override void   InitIteration()
+        protected override void InitIteration()
         {
-            
+
         }
 
 

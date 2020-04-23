@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NumericalMethods
 {
-    class SimpleIterationMethod : MethodBase
+    class SimpleIterationMethod : RectangularMethodBase
     {
         private double tau;
 
@@ -44,9 +44,13 @@ namespace NumericalMethods
 
         protected override void InitMethod()
         {
-            double radius = Math.Abs(h2) + Math.Abs(k2) + Math.Abs(k2);
+            double lambdaMin = 4.0 / (h * h) * Math.Sin(Math.PI / (2u * N)) * Math.Sin(Math.PI / (2u * N)) +
+                               4.0 / (k * k) * Math.Sin(Math.PI / (2u * M)) * Math.Sin(Math.PI / (2u * M));
 
-            tau = 2.0 / ((a2 - radius) + (a2 + radius));
+            double lambdaMax = 4.0 / (h * h) * Math.Sin(Math.PI * (N - 1u) / (2.0 * N)) * Math.Sin(Math.PI * (N - 1u) / (2u * N)) +
+                               4.0 / (k * k) * Math.Sin(Math.PI * (M - 1u) / (2.0 * M)) * Math.Sin(Math.PI * (M - 1u) / (2u * M));
+
+            tau = 2.0 / (lambdaMin + lambdaMax);
         }
 
 

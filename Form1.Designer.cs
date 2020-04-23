@@ -277,6 +277,7 @@
             // 
             // Table
             // 
+            this.Table.BackgroundColor = System.Drawing.Color.White;
             this.Table.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Table.Location = new System.Drawing.Point(0, 0);
             this.Table.Name = "Table";
@@ -539,6 +540,7 @@
             // 
             // TableMain
             // 
+            this.TableMain.BackgroundColor = System.Drawing.Color.White;
             this.TableMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TableMain.Location = new System.Drawing.Point(0, 0);
             this.TableMain.Name = "TableMain";
