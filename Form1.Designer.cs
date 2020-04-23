@@ -96,6 +96,7 @@
             this.DotLabelTest = new System.Windows.Forms.Label();
             this.OptimalOmegaCheckBox = new System.Windows.Forms.CheckBox();
             this.MethodComboBox = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Nbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Mbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NmaxBox)).BeginInit();
@@ -155,7 +156,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(16, 415);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(270, 52);
+            this.button1.Size = new System.Drawing.Size(135, 52);
             this.button1.TabIndex = 5;
             this.button1.Text = "Решить тестовую задачу";
             this.button1.UseVisualStyleBackColor = true;
@@ -732,11 +733,22 @@
             this.MethodComboBox.Size = new System.Drawing.Size(248, 21);
             this.MethodComboBox.TabIndex = 61;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(169, 415);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(132, 52);
+            this.button3.TabIndex = 62;
+            this.button3.Text = "Свой метод";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 879);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.MethodComboBox);
             this.Controls.Add(this.OptimalOmegaCheckBox);
             this.Controls.Add(this.DotLabelTest);
@@ -893,6 +905,7 @@
         private System.Windows.Forms.Label DotLabelTest;
         private System.Windows.Forms.CheckBox OptimalOmegaCheckBox;
         private System.Windows.Forms.ComboBox MethodComboBox;
+        private System.Windows.Forms.Button button3;
     }
 }
 

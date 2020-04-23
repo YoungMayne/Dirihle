@@ -135,6 +135,59 @@ namespace NumericalMethods
         }
 
 
+        private void RunTestTaskCustom<Method>() where Method : CustomMethodBase, new()
+        {
+            ChangeButtonVisibility(button1, false);
+
+            double maxDif = 0.0;
+            double maxAcc = acc_max;
+            uint iterCount = Nmax;
+            uint maxI = 0u;
+            uint maxJ = 0u;
+
+            Method testTask = new Method();
+
+            testTask.Init(Xo, Xn, Yo, Yn, N, M, approximationType);
+            testTask.SetFunctions(
+                Functions.mu1Test,
+                Functions.mu2Test,
+                Functions.mu3Test,
+                Functions.mu4Test,
+                Functions.mu5Test,
+                Functions.mu6Test,
+                Functions.FunctionTest,
+                Functions.ExactFunction);
+
+            if (!use_optimal_parameter)
+            {
+                testTask.SetSpecialParameter(double.Parse(OmegaTextBox.Text));
+            }
+
+            testTask.Run(ref iterCount, ref maxAcc);
+            FindMax(
+                CalculateDifferenceTableForTestTask(
+                    testTask.GetData(), testTask.GetExactTable(), testTask.GetN(), testTask.GetM()),
+                out maxDif, out maxI, out maxJ);
+
+            ChangeTextBoxValue(OmegaTextBox, testTask.GetSpecialParameter().ToString());
+            ChangeLabelValue(ResidualTextBox, testTask.CalculateResidual().ToString());
+            ChangeLabelValue(IterLabel, iterCount.ToString());
+            ChangeLabelValue(AccMaxLabel, maxAcc.ToString());
+            ChangeLabelValue(maxDifLabel, maxDif.ToString());
+            ChangeLabelValue(DotLabelTest, "Соответствует узлу x = " + Math.Abs(Math.Round(testTask.X(maxI), 3)).ToString() +
+                                                               "  y = " + Math.Abs(Math.Round(testTask.Y(maxJ), 3)).ToString());
+
+            TableCreator.Init(N + 1u, M + 1u);
+
+            ChangeTableValues(Table, testTask.GetData());
+            ChangeTableValues(TableExact, testTask.GetExactTable());
+            ChangeTableValues(TableDiffTest,
+                CalculateDifferenceTableForTestTask(testTask.GetData(), testTask.GetExactTable(), N, M));
+
+            ChangeButtonVisibility(button1, true);
+        }
+
+
         private void RunMainTask<Method>() where Method : RectangularMethodBase, new()
         {
             ChangeButtonVisibility(button2, false);
@@ -336,6 +389,32 @@ namespace NumericalMethods
                 case 3:
                     mainTaskThread = new Thread(new ThreadStart(RunMainTask<MinimalDiscrepancyMethod>));
                     mainTaskThread.Start();
+                    break;
+            }
+
+            // F*** C#
+            GC.Collect();
+        }
+
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (!ParseArguments())
+            {
+                MessageBox.Show("Ошибка ввода!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Thread testTaskThread;
+
+            switch (MethodComboBox.SelectedIndex)
+            {
+                case 3:
+                    testTaskThread = new Thread(new ThreadStart(RunTestTaskCustom<MinimalDiscrepancyMethodCustom>));
+                    testTaskThread.Start();
+                    break;
+                default:
+                    MessageBox.Show("Метод не поддерживается!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
 
