@@ -122,6 +122,44 @@ namespace NumericalMethods
         }
 
 
+        public override double[,] GetExactTable()
+        {
+            double[,] exact = new double[N + 1u, M + 1u];
+
+            for (uint i = 0u; i < N + 1u; ++i)
+            {
+                for (uint j = 0u; j < M + 1u; ++j)
+                {
+                    exact[i, j] = ExactFunction(X(i), Y(j));
+                }
+            }
+
+            return exact;
+        }
+
+
+        public override double CalculateResidual()
+        {
+            double R = 0.0;
+
+            for (uint j = 1u; j < M; ++j)
+            {
+                for (uint i = 1u; i < N; ++i)
+                {
+                    R += Math.Pow(
+                         a2 * data[i, j] +
+                         h2 * (data[i - 1, j] +
+                         data[i + 1, j]) +
+                         k2 * (data[i, j - 1] +
+                         data[i, j + 1]) +
+                         Function(X(i), Y(j)), 2.0);
+                }
+            }
+
+            return Math.Sqrt(R);
+        }
+
+
         private void Approximate()
         {
             switch (approximationType)

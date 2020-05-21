@@ -297,7 +297,7 @@
             // MaxDifLabelMain
             // 
             this.MaxDifLabelMain.AutoSize = true;
-            this.MaxDifLabelMain.Location = new System.Drawing.Point(247, 750);
+            this.MaxDifLabelMain.Location = new System.Drawing.Point(147, 751);
             this.MaxDifLabelMain.Name = "MaxDifLabelMain";
             this.MaxDifLabelMain.Size = new System.Drawing.Size(13, 13);
             this.MaxDifLabelMain.TabIndex = 25;
@@ -308,9 +308,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(13, 750);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(228, 13);
+            this.label8.Size = new System.Drawing.Size(132, 13);
             this.label8.TabIndex = 24;
-            this.label8.Text = "Максимальная разница двух приближений:";
+            this.label8.Text = "Максимальная разница:";
             // 
             // button2
             // 

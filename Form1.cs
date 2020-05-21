@@ -111,6 +111,7 @@ namespace NumericalMethods
             }
 
             testTask.Run(ref iterCount, ref maxAcc);
+
             FindMax(
                 CalculateDifferenceTableForTestTask(
                     testTask.GetData(), testTask.GetExactTable(), testTask.GetN(), testTask.GetM()),
@@ -264,6 +265,23 @@ namespace NumericalMethods
 
 
         private double[,] CalculateDifferenceTableForTestTask(
+            double[,] solutionTable, double[,] exactTable, uint _N, uint _M)
+        {
+            double[,] difference = new double[_N + 1u, _M + 1u];
+
+            for (uint i = 0u; i < N + 1u; ++i)
+            {
+                for (uint j = 0u; j < M + 1u; ++j)
+                {
+                    difference[i, j] = Math.Abs(exactTable[i, j] - solutionTable[i, j]);
+                }
+            }
+
+            return difference;
+        }
+
+
+        private double[,] CalculateDifferenceTableForTestTaskCustom(
             double[,] solutionTable, double[,] exactTable, uint _N, uint _M)
         {
             double[,] difference = new double[_N + 1u, _M + 1u];

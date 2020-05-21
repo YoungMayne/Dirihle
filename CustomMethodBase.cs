@@ -37,6 +37,32 @@ namespace NumericalMethods
         }
 
 
+        public override double[,] GetExactTable()
+        {
+            double[,] exact = new double[N + 1u, M + 1u];
+
+
+            for (uint i = Q; i <= N; ++i)
+            {
+                for (uint j = 0u; j <= P; ++j)
+                {
+                    exact[i, j] = ExactFunction(X(i), Y(j));
+                }
+            }
+
+
+            for (uint i = 0u; i <= N; ++i)
+            {
+                for (uint j = P; j <= M; ++j)
+                {
+                    exact[i, j] = ExactFunction(X(i), Y(j));
+                }
+            }
+
+            return exact;
+        }
+
+
         public override void Run(ref uint maxIter, ref double maxAccuracy)
         {
             double current_accuracy;
@@ -129,14 +155,50 @@ namespace NumericalMethods
             }
             if ((Q == i) && (P >= j))
             {
-                return mu5(X(i));
+                return ExactFunction(X(i), Y(j));
             }
             if ((P == j) && (Q >= i))
             {
-                return mu6(Y(j));
+                return ExactFunction(X(i), Y(j));
             }
 
             return data[i, j];
+        }
+
+
+        public override double CalculateResidual()
+        {
+            double R = 0.0;
+
+            for (uint i = Q + 1u; i < N; ++i)
+            {
+                for (uint j = 1u; j <= P; ++j)
+                {
+                    R += Math.Pow(
+                         a2 * data[i, j] +
+                         h2 * (data[i - 1, j] +
+                         data[i + 1, j]) +
+                         k2 * (data[i, j - 1] +
+                         data[i, j + 1]) +
+                         Function(X(i), Y(j)), 2.0);
+                }
+            }
+
+            for (uint i = 1u; i < N; ++i)
+            {
+                for (uint j = P + 1u; j < M; ++j)
+                {
+                    R += Math.Pow(
+                         a2 * data[i, j] +
+                         h2 * (data[i - 1, j] +
+                         data[i + 1, j]) +
+                         k2 * (data[i, j - 1] +
+                         data[i, j + 1]) +
+                         Function(X(i), Y(j)), 2.0);
+                }
+            }
+
+            return Math.Sqrt(R);
         }
 
 
