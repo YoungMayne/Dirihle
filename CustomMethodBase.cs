@@ -88,6 +88,8 @@ namespace NumericalMethods
 
             InitRun();
 
+            Console.WriteLine(CalculateResidual());
+
             do
             {
                 accuracy = 0.0;
